@@ -15,7 +15,14 @@ namespace autopk
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+
+            var setting = new CefSharp.CefSettings();
+
+            // 设置语言
+            setting.Locale = "zh-CN";
+            CefSharp.Cef.Initialize(setting); 
+                       
+              Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
