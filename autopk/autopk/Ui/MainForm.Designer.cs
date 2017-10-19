@@ -40,6 +40,12 @@
             this.input = new System.Windows.Forms.Button();
             this.jspinput = new System.Windows.Forms.Button();
             this.jsptext = new System.Windows.Forms.TextBox();
+            this.imagebutton = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabControl1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // urlText
@@ -61,9 +67,10 @@
             // 
             // browerpanel
             // 
-            this.browerpanel.Location = new System.Drawing.Point(303, 83);
+            this.browerpanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.browerpanel.Location = new System.Drawing.Point(3, 3);
             this.browerpanel.Name = "browerpanel";
-            this.browerpanel.Size = new System.Drawing.Size(710, 535);
+            this.browerpanel.Size = new System.Drawing.Size(277, 176);
             this.browerpanel.TabIndex = 3;
             // 
             // clickem
@@ -127,7 +134,7 @@
             // 
             // jspinput
             // 
-            this.jspinput.Location = new System.Drawing.Point(68, 446);
+            this.jspinput.Location = new System.Drawing.Point(23, 410);
             this.jspinput.Name = "jspinput";
             this.jspinput.Size = new System.Drawing.Size(75, 23);
             this.jspinput.TabIndex = 11;
@@ -140,14 +147,56 @@
             this.jsptext.Location = new System.Drawing.Point(9, 199);
             this.jsptext.Multiline = true;
             this.jsptext.Name = "jsptext";
-            this.jsptext.Size = new System.Drawing.Size(279, 241);
+            this.jsptext.Size = new System.Drawing.Size(279, 192);
             this.jsptext.TabIndex = 12;
+            // 
+            // imagebutton
+            // 
+            this.imagebutton.Location = new System.Drawing.Point(9, 454);
+            this.imagebutton.Name = "imagebutton";
+            this.imagebutton.Size = new System.Drawing.Size(270, 140);
+            this.imagebutton.TabIndex = 13;
+            this.imagebutton.Text = "button1";
+            this.imagebutton.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(511, 164);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(291, 208);
+            this.tabControl1.TabIndex = 14;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(643, 523);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.browerpanel);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(283, 182);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 630);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.imagebutton);
             this.Controls.Add(this.jsptext);
             this.Controls.Add(this.jspinput);
             this.Controls.Add(this.input);
@@ -157,11 +206,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ClickButton);
             this.Controls.Add(this.clickem);
-            this.Controls.Add(this.browerpanel);
             this.Controls.Add(this.goButton);
             this.Controls.Add(this.urlText);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,5 +230,9 @@
         private System.Windows.Forms.Button input;
         private System.Windows.Forms.Button jspinput;
         private System.Windows.Forms.TextBox jsptext;
+        private System.Windows.Forms.Button imagebutton;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }

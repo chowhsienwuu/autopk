@@ -72,6 +72,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestRequestHandler .cs" />
+    <Compile Include="Ui\ControlSnapshot.cs" />
     <Compile Include="Ui\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

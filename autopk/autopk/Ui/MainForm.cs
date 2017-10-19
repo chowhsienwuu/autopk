@@ -34,7 +34,7 @@ namespace autopk.Ui
             browser.TitleChanged += OnBrowserTitleChanged;
             browser.AddressChanged += OnBrowserAddressChanged;
 
-          //  browser.RequestHandler += this;
+            browser.RequestHandler = new TestRequestHandler();
         }
 
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs e)
@@ -96,26 +96,36 @@ namespace autopk.Ui
 
         private void jspinput_Click(object sender, EventArgs e)
         {
-            var jspstring = jsptext.Text;
-            Console.WriteLine("jsptext is  : " + jspstring);
-            browser.ExecuteScriptAsync(jspstring);
+            //  var jspstring = jsptext.Text;
+            //  Console.WriteLine("jsptext is  : " + jspstring);
+            //  browser.ExecuteScriptAsync(jspstring);
 
-            var url = browser.GetFocusedFrame().Url;
-            var source = browser.GetFocusedFrame().GetHashCode();
-            Console.WriteLine("focusedframe url is  : " + url);
+            //  var url = browser.GetFocusedFrame().Url;
+            //  var source = browser.GetFocusedFrame().GetHashCode();
+            //  Console.WriteLine("focusedframe url is  : " + url);
 
 
-            var identifiers = browser.GetBrowser().GetFrameIdentifiers();
-            Console.WriteLine("identifiers count " + identifiers.Count);
-            foreach (var i in identifiers)
-            {
-               IFrame frame = browser.GetBrowser().GetFrame(i);
-                Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
-                Console.WriteLine("mainframe url is  : " + frame.Url);
-            }
-          //  browser.GetBrowser().GetFrameIdentifiers();
-            // Console.WriteLine("mainframe url is  : " + browser.GetMainFrame().Url);
+            //  var identifiers = browser.GetBrowser().GetFrameIdentifiers();
+            //  Console.WriteLine("identifiers count " + identifiers.Count);
+            //  foreach (var i in identifiers)
+            //  {
+            //     IFrame frame = browser.GetBrowser().GetFrame(i);
+            //      Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
+            //      Console.WriteLine("mainframe url is  : " + frame.Url);
+            //    //  frame.
+            //  }
+
+            ////  browser.GetBrowser().GetFrameIdentifiers();
+            //  // Console.WriteLine("mainframe url is  : " + browser.GetMainFrame().Url);
             //  browser.getf
+            //Bitmap bitmap = new Bitmap(this.Width, this.Height);
+            ////      browser.DrawToBitmap(bitmap, new Rectangle(0, 0, this.Width, this.Height));
+            ////    browser.ScreenshotAsync();
+            ////   DrawToBitmap(bitmap, new Rectangle(0, 0, this.Width, this.Height));
+            //bitmap = ControlSnapshot.Snapshot(browser);
+            //imagebutton.Image = bitmap;
+            //bitmap.Save("D://1.bmp");
+
         }
     }
 }
