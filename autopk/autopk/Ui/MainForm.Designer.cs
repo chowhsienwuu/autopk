@@ -30,7 +30,6 @@
         {
             this.urlText = new System.Windows.Forms.TextBox();
             this.goButton = new System.Windows.Forms.Button();
-            this.browerpanel = new System.Windows.Forms.Panel();
             this.clickem = new System.Windows.Forms.TextBox();
             this.ClickButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,11 +40,7 @@
             this.jspinput = new System.Windows.Forms.Button();
             this.jsptext = new System.Windows.Forms.TextBox();
             this.imagebutton = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.browerpanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // urlText
@@ -64,14 +59,6 @@
             this.goButton.Text = "go";
             this.goButton.UseVisualStyleBackColor = true;
             this.goButton.Click += new System.EventHandler(this.goButton_Click);
-            // 
-            // browerpanel
-            // 
-            this.browerpanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.browerpanel.Location = new System.Drawing.Point(3, 3);
-            this.browerpanel.Name = "browerpanel";
-            this.browerpanel.Size = new System.Drawing.Size(277, 176);
-            this.browerpanel.TabIndex = 3;
             // 
             // clickem
             // 
@@ -159,43 +146,19 @@
             this.imagebutton.Text = "button1";
             this.imagebutton.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // browerpanel
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(511, 164);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(291, 208);
-            this.tabControl1.TabIndex = 14;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(643, 523);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.browerpanel);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(283, 182);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.browerpanel.Location = new System.Drawing.Point(374, 92);
+            this.browerpanel.Name = "browerpanel";
+            this.browerpanel.Size = new System.Drawing.Size(630, 526);
+            this.browerpanel.TabIndex = 15;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 630);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.browerpanel);
             this.Controls.Add(this.imagebutton);
             this.Controls.Add(this.jsptext);
             this.Controls.Add(this.jspinput);
@@ -210,8 +173,6 @@
             this.Controls.Add(this.urlText);
             this.Name = "MainForm";
             this.Text = "MainForm";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,7 +181,6 @@
         #endregion
         private System.Windows.Forms.TextBox urlText;
         private System.Windows.Forms.Button goButton;
-        private System.Windows.Forms.Panel browerpanel;
         private System.Windows.Forms.TextBox clickem;
         private System.Windows.Forms.Button ClickButton;
         private System.Windows.Forms.Label label1;
@@ -231,8 +191,6 @@
         private System.Windows.Forms.Button jspinput;
         private System.Windows.Forms.TextBox jsptext;
         private System.Windows.Forms.Button imagebutton;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Panel browerpanel;
     }
 }

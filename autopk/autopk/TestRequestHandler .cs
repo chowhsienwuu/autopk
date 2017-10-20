@@ -5,21 +5,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
+using System.IO;
+using System.Drawing;
+using autopk.Ui;
 
 namespace autopk
 {
     class TestRequestHandler : IRequestHandler
     {
+        private TestResponseFilter filter = null;
+        public event Action<byte[]> NotifyData;
+
         public bool GetAuthCredentials(IWebBrowser browserControl, IBrowser browser, IFrame frame, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
         {
+            Console.WriteLine(" GetAuthCredentials ");
             return false;;
         }
 
         public IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
         {
+            Console.WriteLine(" GetResourceResponseFilter ");
             var url = new Uri(request.Url);
+            if (url.AbsoluteUri.Contains(@"/checknum.aspx?ts="))
+            {
+                var filter = FilterManager.CreateFilter(request.Identifier.ToString());
 
+                return filter;
+            }
             return null;
+        }
+
+        private void filter_NotifyData(byte[] obj)
+        {
+            byte[] data = obj as byte[];
+          //  File.WriteAllBytes("D://test.jpg", data);
+            Image image = Image.FromStream(new MemoryStream(data));
+
+            Bitmap bitmap = new Bitmap(image);
+            bitmap.Save("D://test.bmp");
         }
 
         public bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool isRedirect)
@@ -32,57 +55,12 @@ namespace autopk
         {
             Uri url;
 
-
-
-            //Example of setting User-Agent in every request.
-            //var headers = request.Headers;
-
-            //var userAgent = headers["User-Agent"];
-            //headers["User-Agent"] = userAgent + " CefSharp";
-
-            //request.Headers = headers;
-
-            //NOTE: If you do not wish to implement this method returning false is the default behaviour
-            // We also suggest you explicitly Dispose of the callback as it wraps an unmanaged resource.
-            //callback.Dispose();
-            //return false;
-
-            //NOTE: When executing the callback in an async fashion need to check to see if it's disposed
             if (!callback.IsDisposed)
             {
                 using (callback)
                 {
-                    if (request.Method == "POST")
-                    {
-                        using (var postData = request.PostData)
-                        {
-                            if (postData != null)
-                            {
-                                var elements = postData.Elements;
-
-                                var charSet = request.GetCharSet();
-
-                                foreach (var element in elements)
-                                {
-                                    if (element.Type == PostDataElementType.Bytes)
-                                    {
-                                        var body = element.GetBody(charSet);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Console.WriteLine("OnBeforeResourceLoad " + request.Method + request.PostData);
-                    //Note to Redirect simply set the request Url
-                    //if (request.Url.StartsWith("https://www.google.com", StringComparison.OrdinalIgnoreCase))
-                    //{
-                    //    request.Url = "https://github.com/";
-                    //}
-
-                    //Callback in async fashion
-                    //callback.Continue(true);
-                    //return CefReturnValue.ContinueAsync;
+                    Console.WriteLine("OnBeforeResourceLoad " + request.Method + request.Url + " referurl " + request.ReferrerUrl 
+                       + " request type " + request.ResourceType);
                 }
             }
 
@@ -126,7 +104,14 @@ namespace autopk
 
         public void OnResourceLoadComplete(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            Console.WriteLine("OnResourceLoadComplete " + response.ToString());
+            Console.WriteLine("OnResourceLoadComplete receivedContentLength " + receivedContentLength);
+            if (request.Url.Contains(@"/checknum.aspx?ts="))
+            {
+                var filter = FilterManager.GetFileter(request.Identifier.ToString()) as TestResponseFilter;
+
+                // filter_NotifyData(filter.dataAll.ToArray());
+                NotifyData?.Invoke(filter.dataAll.ToArray());
+            }
         }
 
         public void OnResourceRedirect(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, ref string newUrl)
@@ -135,8 +120,10 @@ namespace autopk
 
         public bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
         {
-            Console.WriteLine("OnResourceResponse " + response.ToString());
-            return false;;
+            Console.WriteLine("OnResourceResponse " +  request.ResourceType + " content-lenght " + response.ResponseHeaders["Content-Length"]);
+
+            return false;
+
         }
 
         public bool OnSelectClientCertificate(IWebBrowser browserControl, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)

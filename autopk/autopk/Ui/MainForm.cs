@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using System.IO;
 
 namespace autopk.Ui
 {
@@ -35,6 +36,19 @@ namespace autopk.Ui
             browser.AddressChanged += OnBrowserAddressChanged;
 
             browser.RequestHandler = new TestRequestHandler();
+
+            var requesthander = browser.RequestHandler as TestRequestHandler;
+            requesthander.NotifyData += Requesthander_NotifyData;
+        }
+
+        private void Requesthander_NotifyData(byte[] obj)
+        {
+            byte[] data = obj as byte[];
+            Image image = Image.FromStream(new MemoryStream(data));
+
+            Bitmap bitmap = new Bitmap(image);
+
+            imagebutton.Image = bitmap;
         }
 
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs e)
@@ -127,5 +141,6 @@ namespace autopk.Ui
             //bitmap.Save("D://1.bmp");
 
         }
+
     }
 }
