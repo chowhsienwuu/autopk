@@ -8,7 +8,7 @@ using System.IO;
 
 namespace autopk
 {
-    class TestResponseFilter : IResponseFilter
+    class CompletedResponseFilter : IResponseFilter
     {
         public List<byte> dataAll = new List<byte>();
 

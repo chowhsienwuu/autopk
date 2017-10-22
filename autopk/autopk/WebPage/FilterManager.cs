@@ -15,7 +15,7 @@ namespace autopk.Ui
         {
             lock (dataList)
             {
-                var filter = new TestResponseFilter();
+                var filter = new CompletedResponseFilter();
                 dataList.Add(guid, filter);
 
                 return filter;
@@ -27,6 +27,14 @@ namespace autopk.Ui
             lock (dataList)
             {
                 return dataList[guid];
+            }
+        }
+
+        public static void DelFileter(string guid)
+        {
+            lock (dataList)
+            {
+                dataList.Remove(guid);
             }
         }
     }

@@ -8,25 +8,24 @@ using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Drawing;
 using autopk.Ui;
+using autopk.WebPage;
 
 namespace autopk
 {
-    class TestRequestHandler : IRequestHandler
+    class AllRequestHandler : IRequestHandler
     {
-        private TestResponseFilter filter = null;
         public event Action<byte[]> NotifyData;
 
         public bool GetAuthCredentials(IWebBrowser browserControl, IBrowser browser, IFrame frame, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
         {
-            Console.WriteLine(" GetAuthCredentials ");
             return false;;
         }
 
         public IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
         {
-            Console.WriteLine(" GetResourceResponseFilter ");
+         //   Console.WriteLine(" GetResourceResponseFilter ");
             var url = new Uri(request.Url);
-            if (url.AbsoluteUri.Contains(@"/checknum.aspx?ts="))
+            if (url.AbsoluteUri.Contains(LoginPage.CHECKSUM_STRING))
             {
                 var filter = FilterManager.CreateFilter(request.Identifier.ToString());
 
@@ -47,23 +46,12 @@ namespace autopk
 
         public bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool isRedirect)
         {
-            Console.WriteLine(" OnBeforeBrowse " + frame.Url + " " + request.Headers);
+       //     Console.WriteLine(" OnBeforeBrowse " + frame.Url + " " + request.Headers);
             return false;;
         }
 
         public CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback)
         {
-            Uri url;
-
-            if (!callback.IsDisposed)
-            {
-                using (callback)
-                {
-                    Console.WriteLine("OnBeforeResourceLoad " + request.Method + request.Url + " referurl " + request.ReferrerUrl 
-                       + " request type " + request.ResourceType);
-                }
-            }
-
             return CefReturnValue.Continue;
         }
 
@@ -89,7 +77,6 @@ namespace autopk
 
         public bool OnQuotaRequest(IWebBrowser browserControl, IBrowser browser, string originUrl, long newSize, IRequestCallback callback)
         {
-            Console.WriteLine("OnQuotaRequest " + originUrl);
             return false;;
         }
 
@@ -104,13 +91,13 @@ namespace autopk
 
         public void OnResourceLoadComplete(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            Console.WriteLine("OnResourceLoadComplete receivedContentLength " + receivedContentLength);
-            if (request.Url.Contains(@"/checknum.aspx?ts="))
+            if (request.Url.Contains(LoginPage.CHECKSUM_STRING))
             {
-                var filter = FilterManager.GetFileter(request.Identifier.ToString()) as TestResponseFilter;
+                var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
 
-                // filter_NotifyData(filter.dataAll.ToArray());
                 NotifyData?.Invoke(filter.dataAll.ToArray());
+
+                FilterManager.DelFileter(request.Identifier.ToString());
             }
         }
 
@@ -120,10 +107,9 @@ namespace autopk
 
         public bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
         {
-            Console.WriteLine("OnResourceResponse " +  request.ResourceType + " content-lenght " + response.ResponseHeaders["Content-Length"]);
+         //   Console.WriteLine("OnResourceResponse " +  request.ResourceType + " content-lenght " + response.ResponseHeaders["Content-Length"]);
 
             return false;
-
         }
 
         public bool OnSelectClientCertificate(IWebBrowser browserControl, IBrowser browser, bool isProxy, string host, int port, X509Certificate2Collection certificates, ISelectClientCertificateCallback callback)

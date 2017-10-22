@@ -20,9 +20,10 @@ namespace autopk
 
             // 设置语言
             setting.Locale = "zh-CN";
-            CefSharp.Cef.Initialize(setting); 
-                       
-              Application.EnableVisualStyles();
+            CefSharp.Cef.Initialize(setting);
+            CefSharp.Cef.EnableHighDPISupport();
+
+            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }

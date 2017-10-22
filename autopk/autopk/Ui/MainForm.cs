@@ -10,35 +10,80 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using System.IO;
+using autopk.WebPage;
+using System.Threading;
 
 namespace autopk.Ui
 {
     public partial class MainForm : Form
     {
+        private const string TAG = "MainFrom";
 
         private readonly ChromiumWebBrowser browser;
 
         public MainForm()
         {
             InitializeComponent();
-            browser = new ChromiumWebBrowser(string.Empty)
-            {
-                Dock = DockStyle.Fill,
-            };
+          
+            browser = new ChromiumWebBrowser(string.Empty);
+
+            browser.Dock = DockStyle.Fill;
             browerpanel.Controls.Add(browser);
 
+            InitBrowser();
+        }
 
-
+        private void InitBrowser()
+        {
             browser.LoadingStateChanged += OnLoadingStateChanged;
-            browser.ConsoleMessage += OnBrowserConsoleMessage;
+
             browser.StatusMessage += OnBrowserStatusMessage;
             browser.TitleChanged += OnBrowserTitleChanged;
             browser.AddressChanged += OnBrowserAddressChanged;
+            browser.ConsoleMessage += Browser_ConsoleMessage;
+            browser.FrameLoadEnd += OnFrameLoadEnd;
 
-            browser.RequestHandler = new TestRequestHandler();
+            browser.RequestHandler = new AllRequestHandler();
 
-            var requesthander = browser.RequestHandler as TestRequestHandler;
+            var requesthander = browser.RequestHandler as AllRequestHandler;
             requesthander.NotifyData += Requesthander_NotifyData;
+        }
+
+        private void Browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)
+        {
+            Util.Log(TAG, "consoleMessage " + e.Message);
+        }
+
+        JavaScriptGen JavaScriptGen = new JavaScriptGen();
+        private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
+        {
+
+            this.BeginInvoke(new Action(()=> {
+                var identifiers = browser.GetBrowser().GetFrameIdentifiers();
+                framecheckboxlist.Items.Clear();
+                foreach (var i in identifiers)
+                {
+                    framecheckboxlist.Items.Add(browser.GetBrowser().GetFrame(i).Url);
+                }
+            }));
+
+            Util.Log(TAG, " OnFrameLoadEnd ");
+            ///////////////////////////////////////////////
+            // step 1 search page jump to login page.
+            //if (browser.GetBrowser().urlText)
+            var inputsearchcodescipt = JavaScriptGen.InputStringByName(SearchPage.Input_SearchBoxName, "36136");
+            Util.Log(TAG, " inputsearchcodescipt " + inputsearchcodescipt);
+            browser.GetMainFrame().ExecuteJavaScriptAsync(inputsearchcodescipt);
+
+            Thread.Sleep(100);
+            var temp = JavaScriptGen.ButtonClickById(SearchPage.Button_SearchBoxId);
+            Util.Log(TAG, " temp " + temp);
+            browser.GetMainFrame().ExecuteJavaScriptAsync(temp);
+
+            ///////////////////////////////////////////////////////
+            //step 2, login page to mainpage
+ 
+
         }
 
         private void Requesthander_NotifyData(byte[] obj)
@@ -47,14 +92,13 @@ namespace autopk.Ui
             Image image = Image.FromStream(new MemoryStream(data));
 
             Bitmap bitmap = new Bitmap(image);
-
             imagebutton.Image = bitmap;
         }
 
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs e)
         {
             // urlText.Text = e.Address;
-            Console.WriteLine("OnBrowserAddressChanged " + e.Address);
+            Util.Log(TAG, "OnBrowserAddressChanged " + e.Address);
         }
 
         private void OnBrowserTitleChanged(object sender, TitleChangedEventArgs e)
@@ -64,19 +108,12 @@ namespace autopk.Ui
 
         private void OnBrowserStatusMessage(object sender, StatusMessageEventArgs e)
         {
-            Console.WriteLine("OnBrowserStatusMessage " + e.Value);
-        }
-
-        private void OnBrowserConsoleMessage(object sender, ConsoleMessageEventArgs e)
-        {
-            Console.WriteLine("OnBrowserConsoleMessage " + e.Message);
-            Console.WriteLine("OnBrowserConsoleMessage " + e.Source);
-            Console.WriteLine("OnBrowserConsoleMessage " + e.Line);
+            Util.Log(TAG, "OnBrowserStatusMessage " + e.Value);
         }
 
         private void OnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
         {
-            Console.WriteLine("OnLoadingStateChanged " + e.ToString());
+            Util.Log(TAG, "OnLoadingStateChanged " + e.ToString());
         }
 
         private void goButton_Click(object sender, EventArgs e)
@@ -110,9 +147,42 @@ namespace autopk.Ui
 
         private void jspinput_Click(object sender, EventArgs e)
         {
-            //  var jspstring = jsptext.Text;
-            //  Console.WriteLine("jsptext is  : " + jspstring);
-            //  browser.ExecuteScriptAsync(jspstring);
+            var jspstring = jsptext.Text;
+            Console.WriteLine("jsptext is  : " + jspstring);
+            ////  browser.GetMainFrame().ExecuteJavaScriptAsync(jspstring);
+
+            //  var identifiers = browser.GetBrowser().GetFrameIdentifiers();
+            //  Console.WriteLine("identifiers count " + identifiers.Count);
+            //  IFrame frame = null;
+            //  foreach (var i in identifiers)
+            //  {
+            //      frame = browser.GetBrowser().GetFrame(i);
+            //      Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
+            //      Console.WriteLine("mainframe url is  : " + frame.Url);
+            //  }
+
+            //  frame.ExecuteJavaScriptAsync(jspstring);
+
+            string selecturl = framecheckboxlist.SelectedItem.ToString();
+            if (string.IsNullOrEmpty(selecturl))
+            {
+                return;
+            }
+
+            var identifiers = browser.GetBrowser().GetFrameIdentifiers();
+          //  Console.WriteLine("identifiers count " + identifiers.Count);
+            IFrame frame = null;
+            foreach (var i in identifiers)
+            {
+                if (browser.GetBrowser().GetFrame(i).Url.Equals(selecturl)){
+                    frame = browser.GetBrowser().GetFrame(i);
+                }
+                //Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
+                //Console.WriteLine("mainframe url is  : " + frame.Url);
+            }
+
+            //var frame = browser.GetBrowser().GetFrame(selectname);
+            frame?.ExecuteJavaScriptAsync(jspstring);
 
             //  var url = browser.GetFocusedFrame().Url;
             //  var source = browser.GetFocusedFrame().GetHashCode();
@@ -140,7 +210,52 @@ namespace autopk.Ui
             //imagebutton.Image = bitmap;
             //bitmap.Save("D://1.bmp");
 
+            // string str = "chk('1');";
+            // browser.GetMainFrame().ExecuteJavaScriptAsync(str);
         }
 
+        private void login_Click(object sender, EventArgs e)
+        {
+            var identifiers = browser.GetBrowser().GetFrameIdentifiers();
+            Console.WriteLine("identifiers count " + identifiers.Count);
+            IFrame frame = null;
+            foreach (var i in identifiers)
+            {
+                frame = browser.GetBrowser().GetFrame(i);
+                Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
+                Console.WriteLine("mainframe url is  : " + frame.Url);
+            }
+            var logtemp = JavaScriptGen.InputStringById(LoginPage.Input_username, "kca115");
+            Util.Log(TAG, " LoginPage.Input_username " + logtemp);
+            frame?.ExecuteJavaScriptAsync(logtemp); //add username
+            Thread.Sleep(100);
+            logtemp = JavaScriptGen.InputStringById(LoginPage.Input_password, "qw123123");
+            Util.Log(TAG, " LoginPage.Input_password " + logtemp);
+            frame?.ExecuteJavaScriptAsync(logtemp); //add paswd
+
+            //
+            // add checksum
+            Thread.Sleep(100);
+            logtemp = JavaScriptGen.InputStringById(LoginPage.Input_Validata, checksum.Text);
+            Util.Log(TAG, " LoginPage.Input_Validata  " + logtemp);
+            frame?.ExecuteJavaScriptAsync(logtemp); //add paswd
+
+            Thread.Sleep(100);
+            //login
+            frame?.ExecuteJavaScriptAsync(LoginPage.Script_login);
+
+            Thread.Sleep(100);
+
+            // step 3. agreement page 
+            identifiers = browser.GetBrowser().GetFrameIdentifiers();
+            Console.WriteLine("identifiers count " + identifiers.Count);
+            foreach (var i in identifiers)
+            {
+                frame = browser.GetBrowser().GetFrame(i);
+                Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
+                Console.WriteLine("mainframe url is  : " + frame.Url);
+            }
+            frame?.ExecuteJavaScriptAsync(AgreementPage.Script_OK);
+        }
     }
 }

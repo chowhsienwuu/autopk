@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace autopk.Ui
+namespace autopk
 {
     class ControlSnapshot
     {
