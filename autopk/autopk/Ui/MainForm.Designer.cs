@@ -44,6 +44,7 @@
             this.imagebutton = new System.Windows.Forms.Button();
             this.checksum = new System.Windows.Forms.TextBox();
             this.framecheckboxlist = new System.Windows.Forms.CheckedListBox();
+            this.debugsaveCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // urlText
@@ -198,11 +199,23 @@
             this.framecheckboxlist.Size = new System.Drawing.Size(835, 164);
             this.framecheckboxlist.TabIndex = 18;
             // 
+            // debugsaveCheckbox
+            // 
+            this.debugsaveCheckbox.AutoSize = true;
+            this.debugsaveCheckbox.Location = new System.Drawing.Point(23, 509);
+            this.debugsaveCheckbox.Name = "debugsaveCheckbox";
+            this.debugsaveCheckbox.Size = new System.Drawing.Size(133, 19);
+            this.debugsaveCheckbox.TabIndex = 19;
+            this.debugsaveCheckbox.Text = "debugsavepage";
+            this.debugsaveCheckbox.UseVisualStyleBackColor = true;
+            this.debugsaveCheckbox.CheckedChanged += new System.EventHandler(this.debugsaveCheckbox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1533, 804);
+            this.Controls.Add(this.debugsaveCheckbox);
             this.Controls.Add(this.framecheckboxlist);
             this.Controls.Add(this.checksum);
             this.Controls.Add(this.login);
@@ -244,5 +257,6 @@
         private System.Windows.Forms.Button imagebutton;
         private System.Windows.Forms.TextBox checksum;
         private System.Windows.Forms.CheckedListBox framecheckboxlist;
+        private System.Windows.Forms.CheckBox debugsaveCheckbox;
     }
 }

@@ -16,6 +16,21 @@ namespace autopk
     {
         public event Action<byte[]> NotifyData;
 
+        private bool saveAllRespnseForDebug;
+
+        public bool SaveAllRespnseForDebug
+        {
+            get
+            {
+                return saveAllRespnseForDebug;
+            }
+
+            set
+            {
+                saveAllRespnseForDebug = value;
+            }
+        }
+
         public bool GetAuthCredentials(IWebBrowser browserControl, IBrowser browser, IFrame frame, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback)
         {
             return false;;
@@ -31,17 +46,15 @@ namespace autopk
 
                 return filter;
             }
+
+            if (saveAllRespnseForDebug)
+            {//save all file to 
+                var filter = FilterManager.CreateFilter(request.Identifier.ToString());
+
+                return filter;
+            }
+
             return null;
-        }
-
-        private void filter_NotifyData(byte[] obj)
-        {
-            byte[] data = obj as byte[];
-          //  File.WriteAllBytes("D://test.jpg", data);
-            Image image = Image.FromStream(new MemoryStream(data));
-
-            Bitmap bitmap = new Bitmap(image);
-            bitmap.Save("D://test.bmp");
         }
 
         public bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool isRedirect)
@@ -98,6 +111,30 @@ namespace autopk
                 NotifyData?.Invoke(filter.dataAll.ToArray());
 
                 FilterManager.DelFileter(request.Identifier.ToString());
+            }
+
+            // for test.
+            if (saveAllRespnseForDebug)
+            {//save all file to 
+                var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
+
+                //  NotifyData?.Invoke(filter.dataAll.ToArray());
+                var rawurl = request.Url;
+                if (rawurl.EndsWith("/"))
+                {
+                    rawurl = rawurl.Remove(rawurl.Length - 1);
+                }
+
+                var pos = rawurl.LastIndexOf('/');
+                string url = rawurl.Substring(pos);
+                 url =  url.Replace('?', '_').Replace('*', '_').Replace('|', '_').Replace('<', '_').Replace('>', '_').Replace(':', '_');
+
+                if (url.Length > 100)
+                {
+                    url = url.Substring(url.Length - 10);
+                }
+                File.WriteAllBytes("D://htmlsave//" + url, filter?.dataAll.ToArray());
+             //  FilterManager.DelFileter(request.Identifier.ToString());
             }
         }
 

@@ -83,7 +83,6 @@ namespace autopk.Ui
             ///////////////////////////////////////////////////////
             //step 2, login page to mainpage
  
-
         }
 
         private void Requesthander_NotifyData(byte[] obj)
@@ -256,6 +255,12 @@ namespace autopk.Ui
                 Console.WriteLine("mainframe url is  : " + frame.Url);
             }
             frame?.ExecuteJavaScriptAsync(AgreementPage.Script_OK);
+        }
+
+        private void debugsaveCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            var requesthander = browser.RequestHandler as AllRequestHandler;
+            requesthander.SaveAllRespnseForDebug = debugsaveCheckbox.Checked;
         }
     }
 }
