@@ -57,17 +57,20 @@ namespace autopk.Ui
         JavaScriptGen JavaScriptGen = new JavaScriptGen();
         private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
-
+            Util.Log(TAG, " OnFrameLoadEnd ");
             this.BeginInvoke(new Action(()=> {
                 var identifiers = browser.GetBrowser().GetFrameIdentifiers();
                 framecheckboxlist.Items.Clear();
+
                 foreach (var i in identifiers)
                 {
-                    framecheckboxlist.Items.Add(browser.GetBrowser().GetFrame(i).Url);
+                    var frame = browser.GetBrowser().GetFrame(i);
+                    framecheckboxlist.Items.Add(frame.Url);
+
+                    Util.Log(TAG, "frame name " + frame.Name + " url " + frame.Url + " identifier: " + i);
                 }
             }));
-
-            Util.Log(TAG, " OnFrameLoadEnd ");
+          
             ///////////////////////////////////////////////
             // step 1 search page jump to login page.
             //if (browser.GetBrowser().urlText)
@@ -221,8 +224,8 @@ namespace autopk.Ui
             foreach (var i in identifiers)
             {
                 frame = browser.GetBrowser().GetFrame(i);
-                Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
-                Console.WriteLine("mainframe url is  : " + frame.Url);
+                //Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
+                //Console.WriteLine("mainframe url is  : " + frame.Url);
             }
             var logtemp = JavaScriptGen.InputStringById(LoginPage.Input_username, "kca115");
             Util.Log(TAG, " LoginPage.Input_username " + logtemp);
@@ -251,8 +254,8 @@ namespace autopk.Ui
             foreach (var i in identifiers)
             {
                 frame = browser.GetBrowser().GetFrame(i);
-                Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
-                Console.WriteLine("mainframe url is  : " + frame.Url);
+                //Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
+                //Console.WriteLine("mainframe url is  : " + frame.Url);
             }
             frame?.ExecuteJavaScriptAsync(AgreementPage.Script_OK);
         }

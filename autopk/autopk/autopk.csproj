@@ -84,6 +84,7 @@
     <Compile Include="WebPage\AgreementPage.cs" />
     <Compile Include="WebPage\JavaScriptGen.cs" />
     <Compile Include="WebPage\LoginPage.cs" />
+    <Compile Include="WebPage\Pk10MainPage.cs" />
     <Compile Include="WebPage\SearchPage.cs" />
     <Compile Include="WebPage\AllRequestHandler .cs" />
     <Compile Include="WebPage\CompletedResponseFilter.cs" />
