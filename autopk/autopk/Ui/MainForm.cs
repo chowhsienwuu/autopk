@@ -47,6 +47,8 @@ namespace autopk.Ui
 
             var requesthander = browser.RequestHandler as AllRequestHandler;
             requesthander.NotifyData += Requesthander_NotifyData;
+
+            browser.JsDialogHandler = new AllJsDialogHandler();
         }
 
         private void Browser_ConsoleMessage(object sender, ConsoleMessageEventArgs e)

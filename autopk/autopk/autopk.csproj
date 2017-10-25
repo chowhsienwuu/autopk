@@ -82,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Util.cs" />
     <Compile Include="WebPage\AgreementPage.cs" />
+    <Compile Include="WebPage\AllJsDialogHandler.cs" />
     <Compile Include="WebPage\JavaScriptGen.cs" />
     <Compile Include="WebPage\LoginPage.cs" />
     <Compile Include="WebPage\Pk10MainPage.cs" />
