@@ -124,29 +124,9 @@ namespace Autopk.Ui
         {
             if (Uri.IsWellFormedUriString(urlText.Text, UriKind.RelativeOrAbsolute))
             {
+                _WebPageManager.WhichPage = WebPageManager.PAGE_INIT;
                 browser.Load(urlText.Text);
             }
-        }
-
-        private void ClickButton_Click(object sender, EventArgs e)
-        {
-            // document.getElementById('su').click();
-            var id = clickem.Text;
-            string jsp = "document.getElementById('" + id + "').click()";
-            Console.WriteLine("click jsp : " + jsp);
-            browser.ExecuteScriptAsync(jsp);
-        }
-
-        private void input_Click(object sender, EventArgs e)
-        {
-            var id = inputID.Text;
-            var text = inputval.Text;
-            //  "document.getElementById('testid2').value='123'"
-      //      string jsp = "document.getElementById('" + id + "').value='" + text + "'";
-
-            string jsp = "var x = document.getElementsByName(\"" + id + "\");x[0].value='" + text + "'";
-            Console.WriteLine("input jsp : " + jsp);
-            browser.ExecuteScriptAsync(jsp);
         }
 
         private void jspinput_Click(object sender, EventArgs e)

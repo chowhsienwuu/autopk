@@ -1,0 +1,734 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        两面盘
+    </title>
+    <link href="../css/css.css" rel="stylesheet" type="text/css" />
+    <script src="../js/jquery.min.js" type="text/javascript"></script>
+    <script src="../js/common.js" type="text/javascript"></script>
+    <script src="../js/jscom.js" type="text/javascript"></script>
+    <script src="../js/userpublic.js?v=1.9" type="text/javascript"></script>
+    <script type="text/javascript">
+        var _lotto_id = "611;612;613;614;615;616;617;618;619;620;621;622;623;624;625;626;627;628;629;630;631;632;633;634;635;636;637;";
+
+        var renewRateTime = parent.wagerpagerefreshtime;  // 更新赔率秒数 跨页面
+        var _gametype = parent.gameno;  // 跨页面
+        var refreshd = null;
+        var OrderOddsString = "";//oddsgroupno:objectid:odds;wagertypename:objectname@oddsgroupno:objectid:odds;wagertypename:objectname
+        //获取下单号码赔率的检查字符串
+        function GetOrderOddsString() {
+            return OrderOddsString;
+        }
+        function SetOrderOddsString(cun) {
+            OrderOddsString = "";
+            if (cun == undefined) {//cjc
+                if ($("#chk_qcstake").prop("checked") == true) {
+                    $(".kuaijie input:text[name^='r']").each(function () {
+                        if ($(this).next().css("display") == "none") {
+                            $(this).parent().prev().removeClass("kuaijie_xz");
+                            $(this).val("");
+                        }
+                    });
+                }
+            }
+        }
+        function ClearTimeOut() {
+            try { parent.window.frames["left"].ClearTimeOut(); } catch (err) { }
+        }
+
+        $.fn.getMydata = function () {
+            $.getJSON("../ashx/orderHandler.ashx", "stype=getoddsbytype&gameno=" + _gametype + "&oddsgroupnos=" + _lotto_id + "&wagerroundno=" + getpb() + "&ts=" + new Date().getTime(), function (ratedata) {
+                var palygroup = "r1bs";
+                if (ratedata.errormsg != undefined) {
+                    $("div#errormsg").addClass("error").text("No Rate data");
+                } else {
+                    $().showTabelDataTwoFace(ratedata.og611, "tblNowBet01", palygroup, 611);
+                    $().showTabelDataTwoFace(ratedata.og612, "tblNowBet01", palygroup, 612);
+                    $().showTabelDataTwoFace(ratedata.og613, "tblNowBet01", palygroup, 613);
+                    $().showTabelDataTwoFace(ratedata.og614, "tblNowBet01", palygroup, 614);
+                    $().showTabelDataTwoFace(ratedata.og615, "tblNowBet01", palygroup, 615);
+                    $().showTabelDataTwoFace(ratedata.og616, "tblNowBet01", palygroup, 616);
+                    $().showTabelDataTwoFace(ratedata.og617, "tblNowBet01", palygroup, 617);
+                    $().showTabelDataTwoFace(ratedata.og618, "tblNowBet01", palygroup, 618);
+                    $().showTabelDataTwoFace(ratedata.og619, "tblNowBet01", palygroup, 619);
+                    $().showTabelDataTwoFace(ratedata.og620, "tblNowBet01", palygroup, 620);
+                    $().showTabelDataTwoFace(ratedata.og621, "tblNowBet01", palygroup, 621);
+                    $().showTabelDataTwoFace(ratedata.og622, "tblNowBet01", palygroup, 622);
+                    $().showTabelDataTwoFace(ratedata.og623, "tblNowBet01", palygroup, 623);
+                    $().showTabelDataTwoFace(ratedata.og624, "tblNowBet01", palygroup, 624);
+                    $().showTabelDataTwoFace(ratedata.og625, "tblNowBet01", palygroup, 625);
+                    $().showTabelDataTwoFace(ratedata.og626, "tblNowBet01", palygroup, 626);
+                    $().showTabelDataTwoFace(ratedata.og627, "tblNowBet01", palygroup, 627);
+                    $().showTabelDataTwoFace(ratedata.og628, "tblNowBet01", palygroup, 628);
+                    $().showTabelDataTwoFace(ratedata.og629, "tblNowBet01", palygroup, 629);
+                    $().showTabelDataTwoFace(ratedata.og630, "tblNowBet01", palygroup, 630);
+                    $().showTabelDataTwoFace(ratedata.og631, "tblNowBet01", palygroup, 631);
+                    $().showTabelDataTwoFace(ratedata.og632, "tblNowBet01", palygroup, 632);
+                    $().showTabelDataTwoFace(ratedata.og633, "tblNowBet01", palygroup, 633);
+                    $().showTabelDataTwoFace(ratedata.og634, "tblNowBet01", palygroup, 634);
+                    $().showTabelDataTwoFace(ratedata.og635, "tblNowBet01", palygroup, 635);
+                    $().showTabelDataTwoFace(ratedata.og636, "tblNowBet01", palygroup, 636);
+                    $().showTabelDataTwoFace(ratedata.og637, "tblNowBet01", palygroup, 637);
+                    order.huo_odds();//存数组
+                }
+
+
+                $("div#errormsg").text("");
+            });
+        };
+        var dsodds = { Tables: [{ Rows: [] }, { Rows: [] }] };
+        var ldata = 0;
+        $.fn.getOdds = function () {
+            if (parent.effective != 1)
+                return;
+            $.getJSON("ref_odds.ashx?gameno=" + _gametype + "&oddsgroupnos=" + _lotto_id + "&wagerroundno=" + getpb() + "&ldata=" + ldata + "&ts=" + new Date().getTime(), function (ratedata) {
+                dsodds = ratedata;
+                if (dsodds == null || dsodds.Tables.length == 0)
+                    return;
+                if (dsodds.Tables.length >= 2 && dsodds.Tables[1].Rows.length > 0) {
+                    if (dsodds.Tables[1].Rows[0].lastupdate != null) {
+                        ldata = dsodds.Tables[1].Rows[0].lastupdate;
+                    }
+                }
+
+                var info = null;
+                var dt = dsodds.Tables[0];
+                if (dt != null && dt.Rows.length > 0) {
+                    for (var i = 0; i < dt.Rows.length; i++) {
+                        info = dt.Rows[i];
+                        $("#oid_" + info.oddsgroupno + "_" + info.objectid).html('<span class="betRateNum">' + info.odds + '</span>');
+                        $("input:hidden[name='odds_" + info.oddsgroupno + "_" + info.objectid + "']").val(info.odds);
+                    }
+                    order.cx_odds(dt);//更新存
+                }
+            });
+        };
+
+        // 显示讯息方块(取代alert 因alert会使目前时间与截止下注时间暂时停止计算)
+        $.fn.showMyMsgBox = function (msg) {
+            parent.hwProwin.errorInfo(msg);
+        };
+        //------------
+
+        // 表格
+        $(function () {
+            //$("div#mainPageData").hide();
+            $("div#maintwssides").hide();
+            document.getElementById("mbstopgame").style.display = "none";
+            document.getElementById("mbwaitstar").style.display = "none";
+            //$("div#errormsg").text("赔率更新中...请稍等...");
+            $("td[id^='td_r']").html("<span style=\"width:41px;color:red;font-weight:bold;\">&nbsp;-&nbsp;</span>");
+            if (parent.iscurgameFengPan == true) {
+                $("input:text[name^='r']").each(function () {
+                    var _name = $(this).attr("name");
+                    $(this).parent().html("<input type=\"text\" name=\"" + _name + "\" size=\"3\" class=\"inp1\" onfocus=\"this.className='inp1m'\" onblur=\"this.className='inp1';\" style=\"display:none;\"/><span style=\"width:60px;\" id=\"fenpan_" + $(this).attr("name").replace("r", "") + "\">封盘</span>")
+                });
+            } else {
+                $("input:text[name^='r']").each(function () {
+                    var _name = $(this).attr("name");
+                    $(this).parent().html("<input type=\"text\" name=\"" + _name + "\" size=\"3\" class=\"inp1\" onfocus=\"this.className='inp1m'\" onblur=\"this.className='inp1';\"/><span style=\"width:60px; display:none;\" id=\"fenpan_" + $(this).attr("name").replace("r", "") + "\">封盘</span>")
+                });
+            }
+            // 取得赔率资料
+            $().getMydata();
+            refreshd = window.setInterval("$().getOdds()", renewRateTime * 1000);
+            // 取消
+            $("input:reset").click(function () {
+                $("tbody input:text[name=^='r']").val("");
+                $("tbody td[id^='thnum_']").disBckColor();
+            });
+            $("input:text").keyup(function () {
+                $(this).val($(this).val().replace(/\D/g, ''));
+            });
+            $("#txtqcstake").keyup(function () {
+                $("#txtqcstake_fu").val($(this).val());
+            });
+            $("#txtqcstake_fu").keyup(function () {
+                $("#txtqcstake").val($(this).val());
+            });
+            $('#chk_qcstake').prop("checked", false);
+            $('#chk_qcstake_fu').prop("checked", false);
+        });
+        function getpb() {
+            return (parent.main_mbopen != undefined ? parent.main_mbopen : "");
+        }
+        function reflesh(pb) {
+            if (refreshd != null) {
+                window.clearInterval(refreshd);
+            }
+            $().getOdds();
+            refreshd = window.setInterval("$().getOdds()", renewRateTime * 1000);
+        }
+        function IntoMtran(transtring,thiss) {
+            if ($(thiss).parent().next().css("display") != "none") {//cjc
+                var arrtran = transtring.split(',');
+                var curodds = document.getElementsByName("odds_" + arrtran[5])[0].value;
+                transtring = arrtran[0] + "," + arrtran[1] + "," + arrtran[2] + "," + arrtran[3] + "," + curodds;
+                OrderOddsString = arrtran[0] + ":" + arrtran[2] + ":" + curodds + ";";
+                var objpb = parent.window.frames["left"];
+                objpb.GetMtranSingle(getpb(), transtring);
+            } else {
+                $(thiss).blur();
+            }
+        }
+        function BatchBet(transtring, arrstring) {
+            var objpb = parent.window.frames["left"];
+            objpb.GetMtranList(getpb(), transtring, arrstring, 0);
+        }
+        function SendOrder() {
+            var transtring = "";
+            var arrstring = "";
+            var _odds = "";
+            var _price = "";
+            var msg = "";
+            if ($("input:text[name^='r'][value!='']").not("[value='*']").size() < 1) {
+                if ($("#chk_qcstake").prop("checked") == true) {//cjc
+                    parent.hwProwin.alert("请点击选中赔率进行快捷下注!!!");
+                } else {
+                    parent.hwProwin.alert("请填写下注金额!!!");
+                }
+                order.reader();
+                return false;
+            }
+            var orderlist = order_wf.ggno6.id1;
+            for (var i = 0; i < orderlist.length; i++) {
+                $("input:text[name^='r'][value!='']").not("[value='*']").each(function () {
+                    var arrname = $(this).attr("name").substring(1);
+                    if (orderlist[i] == arrname) {
+                        var arr = arrname.split("_");
+                        if ($("#chk_qcstake").prop("checked") == true) {//cjc
+                            _price = $("#txtqcstake").val();
+                        } else {
+                            _price = $(this).val();
+                        }
+                        if ($.trim(_price) == "") {//cjc
+                            msg = "请填写下注金额！";
+                            return false;
+                        }
+                        if (!IsInteger(_price)) {
+                            msg = "金额中存在非数值型数据,发送失败！";
+                            return false;
+                        }
+                        _odds = $("input:hidden[name='odds_" + arr[0] + "_" + arr[1] + "']").val();
+                        transtring += arr[0] + ",," + arr[1] + ",," + _odds + "," + _price + ";";
+                        arrstring += arr[0] + ":" + arr[1] + ":" + _price + ";";
+                        OrderOddsString += arr[0] + ":" + arr[1] + ":" + _odds + ";";
+                    }
+                });
+            }
+            var isodd = false;
+            order.guo_odds(function (b) {
+                isodd = b;
+            });
+            if (isodd) {
+                parent.hwProwin.alert("浏览器异常,注单不合法！");
+                order.reader();
+                return false;
+            }
+            if (msg != "") {
+                $().showMyMsgBox(msg);
+                order.reader();
+                return false;
+            }
+            msg = CheckXiaDan(_gametype, parent.roundno, getpb(), arrstring);
+            if (msg != "") {
+                $().showMyMsgBox(msg);
+                order.reader();
+                return;
+            }
+            BatchBet(transtring, arrstring);
+        }
+        function CheckXiaDan(gno, rno, pb, wagerstr) {
+            var msg = "";
+            try {
+                $.ajax({
+                    type: "post",
+                    async: false,
+                    url: "../ashx/orderHandler.ashx",
+                    dataType: "text",
+                    data: { stype: "checkxiadan", gameno: gno, roundno: rno, wagerroundno: pb, wagers: wagerstr },
+                    success: function (data) {
+                        if (data != "") {
+                            msg = data;
+                        }
+                    }
+                });
+            } catch (err) { }
+            return msg;
+        }
+        function cleartxt() {
+            $("td[id^='thnum_']").css("background-color", "");
+            $("input:text").each(function () { $(this).val(""); });
+            if ($("#chk_qcstake").prop("checked") == true) {//cjc
+                $(".kuaijie input:text[name^='r']").each(function () {
+                    if ($(this).next().css("display") == "none") {
+                        $(this).parent().prev().removeClass("kuaijie_xz");
+                        $(this).val("");
+                    }
+                });
+            }
+        }
+        function Read_BallimgZ() {
+            //var list = ch_bjsc_twosides.Read_Ballimg().value;
+            $.getJSON("../ashx/gamegdvhHandler.ashx", "stype=WinningnohistoryDay&gameno=11&lotteryname=lotteryno1&ts=" + new Date().getTime(), function (ratedata) {
+                if (ratedata.errormsg != undefined) {
+                    $("div#errormsg").addClass("error").text(ratedata.errormsg);
+                } else {
+                    var list = ratedata;
+                    var tr1 = "", tr2 = "", tr3 = "";
+                    var rows1 = 0, rows2 = 0, rows3 = 0;
+                    for (i = 0; i < list.Rows.length; i++) {
+                        info = list.Rows[i];
+                        if (i == 0) {
+                            rows1++; rows2++; rows3++;
+                            tr1 = "<td width='28' style=\"min-height: 25px;\">" + info["desc1"];
+                            tr2 = "<td width='28' style=\"min-height: 25px;\">" + info["desc2"];
+                            tr3 = "<td width='28' style=\"min-height: 25px;\">" + info["desc3"];
+                        } else {
+                            if (rows1 != 25) {
+                                if (info["desc1"] != list.Rows[i - 1]["desc1"]) {
+                                    rows1++;
+                                    tr1 = tr1 + "</td><td width='28'>" + info["desc1"];
+                                } else {
+                                    tr1 = tr1 + "<br/>" + info["desc1"];
+                                }
+                            }
+                            if (rows2 != 25) {
+                                if (info["desc2"] != list.Rows[i - 1]["desc2"]) {
+                                    rows2++;
+                                    tr2 = tr2 + "</td><td width='28'>" + info["desc2"];
+                                } else {
+                                    tr2 = tr2 + "<br/>" + info["desc2"];
+                                }
+                            }
+                            if (rows3 != 25) {
+                                if (info["desc3"] != list.Rows[i - 1]["desc3"]) {
+                                    rows3++;
+                                    tr3 = tr3 + "</td><td width='28'>" + info["desc3"];
+                                } else {
+                                    tr3 = tr3 + "<br/>" + info["desc3"];
+                                }
+                            }
+                        }
+                    }
+                    tr1 = tr1 + "</td>";
+                    var arr = String(tr1).split("</td>");
+                    tr1 = "";
+                    for (i = arr.length - 1; i >= 0; i--) {
+                        tr1 = tr1 + arr[i] + "</td>";
+                    }
+                    tr2 = tr2 + "</td>";
+                    arr = String(tr2).split("</td>");
+                    tr2 = "";
+                    for (i = arr.length - 1; i >= 0; i--) {
+                        tr2 = tr2 + arr[i] + "</td>";
+                    }
+                    tr3 = tr3 + "</td>";
+                    arr = String(tr3).split("</td>");
+                    tr3 = "";
+                    for (i = arr.length - 1; i >= 0; i--) {
+                        tr3 = tr3 + arr[i] + "</td>";
+                    }
+                    for (i = 0; i < 25 - rows1; i++) {
+                        tr1 = "<td width='28'></td>" + tr1;
+                    }
+                    for (i = 0; i < 25 - rows2; i++) {
+                        tr2 = "<td width='28'></td>" + tr2;
+                    }
+                    for (i = 0; i < 25 - rows3; i++) {
+                        tr3 = "<td width='28'></td>" + tr3;
+                    }
+                    $("#lotteryno_tr1").html(tr1);
+                    $("#lotteryno_tr2").html(tr2);
+                    $("#lotteryno_tr3").html(tr3);
+                    $("#lotteryno_tr1").css("display", "block");
+                    $("#lotteryno_tr2").css("display", "none");
+                    $("#lotteryno_tr3").css("display", "none");
+                    AutoWin();
+                    $("#lotteryno_tr1  td:odd").addClass("Jut_caption_1");
+                    $("#lotteryno_tr2  td:odd").addClass("Jut_caption_1");
+                    $("#lotteryno_tr3  td:odd").addClass("Jut_caption_1");
+                    $("#BallList").css("display", "block");
+                    Read_Ballimg(1);
+                }
+            });
+        }
+         function Read_Ballimg(val) {
+             $("#lotteryno_tr1").css("display", "none");
+             $("#lotteryno_tr2").css("display", "none");
+             $("#lotteryno_tr3").css("display", "none");
+             $("#sRB_1").removeClass("td_caption_2");
+             $("#sRB_2").removeClass("td_caption_2");
+             $("#sRB_3").removeClass("td_caption_2");
+             $("#sRB_1").addClass("td_caption_1");
+             $("#sRB_2").addClass("td_caption_1");
+             $("#sRB_3").addClass("td_caption_1");
+             $("#lotteryno_tr" + val).css("display", "block");
+             $("#sRB_" + val).addClass("td_caption_2");
+             AutoWin();
+         }
+         function GetTwoSidesHistory() {
+             //var list = ch_bjsc_twosides.GetTwoSidesHistory().value;
+             $.getJSON("../ashx/gamegdvhHandler.ashx", "stype=twosideshistory&gameno=11&ts=" + new Date().getTime(), function (ratedata) {
+                 if (ratedata.errormsg != undefined) {
+                     $("div#errormsg").addClass("error").text(ratedata.errormsg);
+                 } else {
+                     var list = ratedata;
+                     if (list == null) return;
+                     var str = "<tr><td class='td_caption_1' colspan='2' style=\"width:150px;\">两面长龙排行</td></tr>";
+                     for (i = 0; i < list.Rows.length; i++) {
+                         info = list.Rows[i];
+                         if (  parseInt(info["lotteryno"], 10)>2 && parseInt(info["lotteryno"], 10) < 11) {
+                             str = str + " <tr class='t_list_tr_0'><td class='f_left TDb_B'>第" + info["lotteryno"] + "名-" + info["properties"] + "</td><td class='TDb_R'>" + info["num"] + " 期</td></tr>";
+                         } else {
+                             str = str + " <tr class='t_list_tr_0'><td class='f_left TDb_B'>" + info["properties"] + "</td><td class='TDb_R'>" + info["num"] + " 期</td></tr>";
+                         }
+                     }
+                     $("#TwoSides").html(str);
+                     $("#tbtwssides").css("display", "block");
+                 }
+             });
+         }
+    </script>
+    <style type="text/css">
+        #lotteryno a {
+            color: #4a1a04;
+            text-decoration: none;
+            border-right: 1px solid #fff;
+        }
+
+            #lotteryno a:hover {
+                text-decoration: underline;
+                color: #c15422;
+            }
+
+            #lotteryno a:active {
+                color: #c15422;
+            }
+    </style>
+</head>
+<body>
+    <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td valign="top">
+                <div style="margin-right:10px;">
+                    <div id="round_content">
+                        <table border="0" cellpadding="0" cellspacing="0" width="700">
+                            <tr>
+                                <td height="24" width="39%" style="font-weight: bold;">
+                                    <b class="b_title"></b>
+                                    <span style="font-size: 10pt; font-family: Arial; color: red; position: relative; filter: blur(add=1, direction=45, strength=3); height: 10px">今天输赢：</span><span class="font_r" id="UserResult"></span>
+                                </td>
+                                <td width="61%" colspan="1" align="right">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td height="27">
+                                                <div class="head_f2" id="div_betno"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table border="0" cellpadding="0" cellspacing="0" width="700">
+                            <tr>
+                                <td height="24" width="28%"><b id="t_LID" style="color: green;"></b>期　<b style="font-weight: bold; color: #2836f4;">两面盘</b></td>
+                                <td align="right" width="25%"><span id="hClockTime_C"></span></td>
+                                <td align="right" width="25%"><span id="hClockTime_O"></span></td>
+                                <td align="right" width="22%"><span id="Update_Time"></span></td>
+                            </tr>
+                        </table>
+                        <div class="btnDivArea" id="btnDivArea11">
+                            <input id="chk_qcstake" type="checkbox" onclick="QCheckShow(this)" /><span onmouseover="javascript:this.style.color='#FF0D0D';" onmouseout="javascript:this.style.color='#299A26';" style="display:inline-block; color:#299A26; font-weight:bold;">快捷下注</span>
+                            <span id="sp_qcstake" style=" display:none;">金额：<input id="txtqcstake" type="text" style="width:60px;" /><span onclick="QCExplain()" style="color:#FF0D0D; display:inline-block; width:60px; cursor:pointer; text-align:left;">说明</span></span>
+                            <input type="reset" value="重 填" onmouseover="this.className='button_bg2'" onmouseout="this.className='button_bg1'" class="button_bg1" onclick="SetOrderOddsString();" />
+                            <input id="btn_order2" type="button" value="下 注" onmouseover="this.className='button_bg2'" onmouseout="this.className='button_bg1'" class="button_bg1" />
+                        </div>
+                        <div class="btnDivArea" id="btnDivArea22" style="display:none;">
+                            <span style="color:red">下注中,请等待。。。</span>
+                        </div>
+                    </div>
+                    <div id="errormsg" style=" width:700px; display:none;"></div>
+                    <div id="mainPageData">
+
+                        <table class="DTable kuaijie" cellpadding="0" cellspacing="1" border="0" width="700" id="tblNowBet01">
+                            <tbody>
+                                <tr class="td_caption_1">
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">冠军</td>
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">亚军</td>
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">第三名</td>
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">第四名</td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r621_1" align="center">大</td>
+                                    <td id="td_r621_1">&nbsp;</td>
+                                    <td><input type="text" name="r621_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r622_1" align="center">大</td>
+                                    <td id="td_r622_1">&nbsp;</td>
+                                    <td><input type="text" name="r622_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r623_1" align="center">大</td>
+                                    <td id="td_r623_1">&nbsp;</td>
+                                    <td><input type="text" name="r623_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r624_1" align="center">大</td>
+                                    <td id="td_r624_1">&nbsp;</td>
+                                    <td><input type="text" name="r624_1" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r621_2" align="center">小</td>
+                                    <td id="td_r621_2">&nbsp;</td>
+                                    <td><input type="text" name="r621_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r622_2" align="center">小</td>
+                                    <td id="td_r622_2">&nbsp;</td>
+                                    <td><input type="text" name="r622_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r623_2" align="center">小</td>
+                                    <td id="td_r623_2">&nbsp;</td>
+                                    <td><input type="text" name="r623_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r624_2" align="center">小</td>
+                                    <td id="td_r624_2">&nbsp;</td>
+                                    <td><input type="text" name="r624_2" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r611_1" align="center">单</td>
+                                    <td id="td_r611_1">&nbsp;</td>
+                                    <td><input type="text" name="r611_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r612_1" align="center">单</td>
+                                    <td id="td_r612_1">&nbsp;</td>
+                                    <td><input type="text" name="r612_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r613_1" align="center">单</td>
+                                    <td id="td_r613_1">&nbsp;</td>
+                                    <td><input type="text" name="r613_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r614_1" align="center">单</td>
+                                    <td id="td_r614_1">&nbsp;</td>
+                                    <td><input type="text" name="r614_1" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r611_2" align="center">双</td>
+                                    <td id="td_r611_2">&nbsp;</td>
+                                    <td><input type="text" name="r611_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r612_2" align="center">双</td>
+                                    <td id="td_r612_2">&nbsp;</td>
+                                    <td><input type="text" name="r612_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r613_2" align="center">双</td>
+                                    <td id="td_r613_2">&nbsp;</td>
+                                    <td><input type="text" name="r613_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r614_2" align="center">双</td>
+                                    <td id="td_r614_2">&nbsp;</td>
+                                    <td><input type="text" name="r614_2" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r631_1" align="center">龙</td>
+                                    <td id="td_r631_1">&nbsp;</td>
+                                    <td><input type="text" name="r631_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r632_1" align="center">龙</td>
+                                    <td id="td_r632_1">&nbsp;</td>
+                                    <td><input type="text" name="r632_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r633_1" align="center">龙</td>
+                                    <td id="td_r633_1">&nbsp;</td>
+                                    <td><input type="text" name="r633_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r634_1" align="center">龙</td>
+                                    <td id="td_r634_1">&nbsp;</td>
+                                    <td><input type="text" name="r634_1" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r631_2" align="center">虎</td>
+                                    <td id="td_r631_2">&nbsp;</td>
+                                    <td><input type="text" name="r631_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r632_2" align="center">虎</td>
+                                    <td id="td_r632_2">&nbsp;</td>
+                                    <td><input type="text" name="r632_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r633_2" align="center">虎</td>
+                                    <td id="td_r633_2">&nbsp;</td>
+                                    <td><input type="text" name="r633_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r634_2" align="center">虎</td>
+                                    <td id="td_r634_2">&nbsp;</td>
+                                    <td><input type="text" name="r634_2" size="3" /></td>
+                                </tr>
+                                <tr class="td_caption_1">
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">第五名</td>
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">第六名</td>
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">第七名</td>
+                                    <td align="center" colspan="3" style=" font-weight bold;" class="title_colspan">第八名</td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r625_1" align="center">大</td>
+                                    <td id="td_r625_1">&nbsp;</td>
+                                    <td><input type="text" name="r625_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r626_1" align="center">大</td>
+                                    <td id="td_r626_1">&nbsp;</td>
+                                    <td><input type="text" name="r626_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r627_1" align="center">大</td>
+                                    <td id="td_r627_1">&nbsp;</td>
+                                    <td><input type="text" name="r627_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r628_1" align="center">大</td>
+                                    <td id="td_r628_1">&nbsp;</td>
+                                    <td><input type="text" name="r628_1" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r625_2" align="center">小</td>
+                                    <td id="td_r625_2">&nbsp;</td>
+                                    <td><input type="text" name="r625_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r626_2" align="center">小</td>
+                                    <td id="td_r626_2">&nbsp;</td>
+                                    <td><input type="text" name="r626_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r627_2" align="center">小</td>
+                                    <td id="td_r627_2">&nbsp;</td>
+                                    <td><input type="text" name="r627_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r628_2" align="center">小</td>
+                                    <td id="td_r628_2">&nbsp;</td>
+                                    <td><input type="text" name="r628_2" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r615_1" align="center">单</td>
+                                    <td id="td_r615_1">&nbsp;</td>
+                                    <td><input type="text" name="r615_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r616_1" align="center">单</td>
+                                    <td id="td_r616_1">&nbsp;</td>
+                                    <td><input type="text" name="r616_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r617_1" align="center">单</td>
+                                    <td id="td_r617_1">&nbsp;</td>
+                                    <td><input type="text" name="r617_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r618_1" align="center">单</td>
+                                    <td id="td_r618_1">&nbsp;</td>
+                                    <td><input type="text" name="r618_1" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r615_2" align="center">双</td>
+                                    <td id="td_r615_2">&nbsp;</td>
+                                    <td><input type="text" name="r615_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r616_2" align="center">双</td>
+                                    <td id="td_r616_2">&nbsp;</td>
+                                    <td><input type="text" name="r616_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r617_2" align="center">双</td>
+                                    <td id="td_r617_2">&nbsp;</td>
+                                    <td><input type="text" name="r617_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r618_2" align="center">双</td>
+                                    <td id="td_r618_2">&nbsp;</td>
+                                    <td><input type="text" name="r618_2" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r635_1" align="center">龙</td>
+                                    <td id="td_r635_1">&nbsp;</td>
+                                    <td><input type="text" name="r635_1" size="3" /></td>
+                                    <td align="center" class="td_caption_1 title_colspan" colspan="3" style=" font-weight bold;">第九名</td>
+                                    <td align="center" class="td_caption_1 title_colspan" colspan="3" style=" font-weight bold;">第十名</td>
+                                    <td colspan="3" class="td_caption_1 title_colspan" style=" font-weight bold;" align="center">冠、亚军和</td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r635_2" align="center">虎</td>
+                                    <td id="td_r635_2">&nbsp;</td>
+                                    <td><input type="text" name="r635_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r629_1" align="center">大</td>
+                                    <td id="td_r629_1">&nbsp;</td>
+                                    <td><input type="text" name="r629_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r630_1" align="center">大</td>
+                                    <td id="td_r630_1">&nbsp;</td>
+                                    <td><input type="text" name="r630_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r637_1">和数大</td>
+                                    <td id="td_r637_1">&nbsp;</td>
+                                    <td><input type="text" name="r637_1" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td colspan="3" rowspan="3" style=" border:0px;" class="title_colspan">&nbsp;</td>
+                                    <td class="betnum" id="thnum_r629_2" align="center">小</td>
+                                    <td id="td_r629_2">&nbsp;</td>
+                                    <td><input type="text" name="r629_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r630_2" align="center">小</td>
+                                    <td id="td_r630_2">&nbsp;</td>
+                                    <td><input type="text" name="r630_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r637_2">和数小</td>
+                                    <td id="td_r637_2">&nbsp;</td>
+                                    <td><input type="text" name="r637_2" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r619_1" align="center">单</td>
+                                    <td id="td_r619_1">&nbsp;</td>
+                                    <td><input type="text" name="r619_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r620_1" align="center">单</td>
+                                    <td id="td_r620_1">&nbsp;</td>
+                                    <td><input type="text" name="r620_1" size="3" /></td>
+                                    <td class="betnum" id="thnum_r636_1" align="center">和数单</td>
+                                    <td id="td_r636_1">&nbsp;</td>
+                                    <td><input type="text" name="r636_1" size="3" /></td>
+                                </tr>
+                                <tr class="Dbgco1">
+                                    <td class="betnum" id="thnum_r619_2" align="center">双</td>
+                                    <td id="td_r619_2">&nbsp;</td>
+                                    <td><input type="text" name="r619_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r620_2" align="center">双</td>
+                                    <td id="td_r620_2">&nbsp;</td>
+                                    <td><input type="text" name="r620_2" size="3" /></td>
+                                    <td class="betnum" id="thnum_r636_2">和数双</td>
+                                    <td id="td_r636_2">&nbsp;</td>
+                                    <td><input type="text" name="r636_2" size="3" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="btnDivArea" id="btnDivArea">
+                            <input id="chk_qcstake_fu" type="checkbox" onclick="QCheckShow_fu(this)" /><span onmouseover="javascript:this.style.color='#FF0D0D';" onmouseout="javascript:this.style.color='#299A26';" style="display:inline-block; color:#299A26; font-weight:bold;">快捷下注</span>
+                            <span id="sp_qcstake_fu" style=" display:none;">金额：<input id="txtqcstake_fu" type="text" style="width:60px;" /><span onclick="QCExplain()" style="color:#FF0D0D; display:inline-block; width:60px; cursor:pointer; text-align:left;">说明</span></span>
+                            <input type="reset" value="重 填" onmouseover="this.className='button_bg2'" onmouseout="this.className='button_bg1'" class="button_bg1" onclick="SetOrderOddsString();" />
+                            <input id="btn_order" type="button" value="下 注" onmouseover="this.className='button_bg2'" onmouseout="this.className='button_bg1'" class="button_bg1" />
+                        </div>
+                        <div class="btnDivArea" id="btnDivArea2" style="display:none;">
+                            <span style="color:red">下注中,请等待。。。</span>
+                        </div>
+                        <div id="lotteryno">
+                            <table class="Ball_List" border="0" cellspacing="1" cellpadding="0" width="700" id="BallList" style=" display:none;">
+                                <tbody>
+                                    <tr>
+                                        <td id="sRB_1" class="td_caption_2"><a href="javascript:Read_Ballimg(1)">冠、亚军和</a></td>
+                                        <td id="sRB_2" class="td_caption_1"><a href="javascript:Read_Ballimg(2)">冠、亚军和 大小</a></td>
+                                        <td id="sRB_3" class="td_caption_1"><a href="javascript:Read_Ballimg(3)">冠、亚军 单双</a></td>
+                                    </tr>
+                                    <tr class="Ball_tr_H">
+                                        <td colspan="3">
+                                            <table class="Ball_List" border="0" cellspacing="0" cellpadding="0" width="698">
+                                                <tbody>
+                                                    <tr class="Ball_tr_H" valign="top" id="lotteryno_tr1" style=" display:none;height:auto;min-height:25px;"></tr>
+                                                    <tr class="Ball_tr_H" valign="top" id="lotteryno_tr2" style=" display:none;height:auto;min-height:25px;"></tr>
+                                                    <tr class="Ball_tr_H" valign="top" id="lotteryno_tr3" style=" display:none;height:auto;min-height:25px;"></tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </td>
+            <td valign="top">
+                <div id="maintwssides">
+                    <table class="Ball_List" border="0" cellspacing="1" cellpadding="0" width="150" id="tbtwssides" style=" display:none;">
+                        <tbody id="TwoSides">
+                            <tr><td class="td_caption_1" colspan="2">两面长龙排行</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="mbstopgame" style="display:none;">
+        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,22,0" width=700 height=500 id=T><param name=wmode value=transparent /><param name=movie value=../images/T0.swf /><param name=FlashVars value=page ID=0 /><param name=quality value=high /><param name=menu value=false><embed src=../images/T0.swf name=T quality=high wmode=transparent type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?p1_prod_version=shockwaveflash" width=700 height=500></embed></object>
+    </div>
+    <div id="mbwaitstar" style="display:none;">
+        <img alt="" src="../images/mbwaitstar.jpg" style="width:699px;height:299px;" />
+    </div>
+    <div id="mbnoopen" style="display:none;">
+        <img alt="" src="../images/mbnoopen.jpg" style="width:699px;height:299px;" />
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    GetTwoSidesHistory();
+    Read_BallimgZ();
+    $1("div_betno").innerHTML = parent.document.getElementById("div_winningno").innerHTML;
+    $(".b_title").text(parent.getgamename(_gametype));
+</script>

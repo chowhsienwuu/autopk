@@ -24,6 +24,7 @@ namespace autopk.WebPage
         public const int PAGE_SEARCH = 1;
         public const int PAGE_LOGIN = 2;
         public const int PAGE_AGREEMNT = 3;
+        public const int PAGE_MAIN_BUSS = 4;
 
         private int whichPage;
 
@@ -83,7 +84,7 @@ namespace autopk.WebPage
                     if (currenturl.Contains(AgreementPage.TOPFRAME_TAIL))
                     {
                         WhichPage = PAGE_AGREEMNT;
-                        _mainbussinesurlbase = currenturl.Substring(0, currenturl.LastIndexOf('/'));
+                        _mainbussinesurlbase = currenturl.Substring(0, currenturl.LastIndexOf('/') + 1);
 
                         var identifiers = _browser.GetBrowser().GetFrameIdentifiers();
                         IFrame tempframe = null;
@@ -96,12 +97,28 @@ namespace autopk.WebPage
 
                     break;
                 case PAGE_AGREEMNT:
-                        
+                     if (currenturl.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
+                    {
+                        WhichPage = PAGE_MAIN_BUSS;
+                        Log.ShowLog(TAG, "login in success : ");
+                    }
+                    break;
+                case PAGE_MAIN_BUSS:
                     break;
                 default:
                     break;
             }
         }
+
+
+
+
+
+        public bool HasLogin()
+        {
+            return WhichPage == PAGE_MAIN_BUSS;
+        }
+
 
         public void LoginIn(string username, string passwd, string vilValidatatext)
         {

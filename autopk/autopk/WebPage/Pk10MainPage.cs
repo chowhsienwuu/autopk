@@ -21,8 +21,6 @@ namespace Autopk.WebPage
         //   mainbody
 
 
-        public static string BUS_BASE_PAGE = " http://60xxdgw.777ssd.com/cp3-10-mb/ch/";
-
         public static string LEFT_PAGE_ADD = "left.aspx";
         public static string UPSIE_PAGE_ADD = "main.aspx";
         public static string BJSC_MAINBODY_PAGE_ADD = "bjsc_twosides.aspx?gameno=11";
@@ -48,5 +46,9 @@ namespace Autopk.WebPage
         /**下注确认与取消*/ //.aspx main.aspx
         public static string JS_ORDER2_CONFIERM = "hwProwin._config.retype = \"ok\";hwProwin.close();";
         public static string JS_ORDER2_CHAC = "hwProwin.close();";
+
+
+
+
     }
 }

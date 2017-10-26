@@ -84,6 +84,7 @@
     <Compile Include="WebPage\AgreementPage.cs" />
     <Compile Include="WebPage\AllJsDialogHandler.cs" />
     <Compile Include="Util\JavaScriptGen.cs" />
+    <Compile Include="WebPage\FillNumber.cs" />
     <Compile Include="WebPage\LoginPage.cs" />
     <Compile Include="WebPage\Pk10MainPage.cs" />
     <Compile Include="WebPage\SearchPage.cs" />
@@ -124,7 +125,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="WebPage\ref_pages\bjsc_twodides.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x64.3.2883.1552\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2883.1552\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
