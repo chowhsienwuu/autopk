@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace autopk.WebPage
+namespace Autopk.WebPage
 {
     class Pk10MainPage
     {

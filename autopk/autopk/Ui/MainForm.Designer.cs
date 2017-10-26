@@ -1,4 +1,4 @@
-﻿namespace autopk.Ui
+﻿namespace Autopk.Ui
 {
     partial class MainForm
     {
@@ -49,18 +49,17 @@
             // 
             // urlText
             // 
-            this.urlText.Location = new System.Drawing.Point(249, 13);
-            this.urlText.Margin = new System.Windows.Forms.Padding(4);
+            this.urlText.Location = new System.Drawing.Point(187, 10);
             this.urlText.Name = "urlText";
-            this.urlText.Size = new System.Drawing.Size(637, 25);
+            this.urlText.Size = new System.Drawing.Size(479, 21);
             this.urlText.TabIndex = 1;
+            this.urlText.Text = "http://n668.cc282.com/";
             // 
             // goButton
             // 
-            this.goButton.Location = new System.Drawing.Point(962, 9);
-            this.goButton.Margin = new System.Windows.Forms.Padding(4);
+            this.goButton.Location = new System.Drawing.Point(722, 7);
             this.goButton.Name = "goButton";
-            this.goButton.Size = new System.Drawing.Size(100, 29);
+            this.goButton.Size = new System.Drawing.Size(75, 23);
             this.goButton.TabIndex = 2;
             this.goButton.Text = "go";
             this.goButton.UseVisualStyleBackColor = true;
@@ -68,18 +67,16 @@
             // 
             // clickem
             // 
-            this.clickem.Location = new System.Drawing.Point(115, 65);
-            this.clickem.Margin = new System.Windows.Forms.Padding(4);
+            this.clickem.Location = new System.Drawing.Point(86, 52);
             this.clickem.Name = "clickem";
-            this.clickem.Size = new System.Drawing.Size(132, 25);
+            this.clickem.Size = new System.Drawing.Size(100, 21);
             this.clickem.TabIndex = 4;
             // 
             // ClickButton
             // 
-            this.ClickButton.Location = new System.Drawing.Point(256, 65);
-            this.ClickButton.Margin = new System.Windows.Forms.Padding(4);
+            this.ClickButton.Location = new System.Drawing.Point(192, 52);
             this.ClickButton.Name = "ClickButton";
-            this.ClickButton.Size = new System.Drawing.Size(100, 29);
+            this.ClickButton.Size = new System.Drawing.Size(75, 23);
             this.ClickButton.TabIndex = 5;
             this.ClickButton.Text = "click";
             this.ClickButton.UseVisualStyleBackColor = true;
@@ -88,45 +85,40 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 71);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(7, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 15);
+            this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 6;
             this.label1.Text = "click id";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 140);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(7, 112);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 15);
+            this.label2.Size = new System.Drawing.Size(35, 12);
             this.label2.TabIndex = 7;
             this.label2.Text = "input";
             // 
             // inputID
             // 
-            this.inputID.Location = new System.Drawing.Point(115, 129);
-            this.inputID.Margin = new System.Windows.Forms.Padding(4);
+            this.inputID.Location = new System.Drawing.Point(86, 103);
             this.inputID.Name = "inputID";
-            this.inputID.Size = new System.Drawing.Size(132, 25);
+            this.inputID.Size = new System.Drawing.Size(100, 21);
             this.inputID.TabIndex = 8;
             // 
             // inputval
             // 
-            this.inputval.Location = new System.Drawing.Point(115, 185);
-            this.inputval.Margin = new System.Windows.Forms.Padding(4);
+            this.inputval.Location = new System.Drawing.Point(86, 148);
             this.inputval.Name = "inputval";
-            this.inputval.Size = new System.Drawing.Size(132, 25);
+            this.inputval.Size = new System.Drawing.Size(100, 21);
             this.inputval.TabIndex = 9;
             // 
             // input
             // 
-            this.input.Location = new System.Drawing.Point(272, 156);
-            this.input.Margin = new System.Windows.Forms.Padding(4);
+            this.input.Location = new System.Drawing.Point(204, 125);
             this.input.Name = "input";
-            this.input.Size = new System.Drawing.Size(100, 29);
+            this.input.Size = new System.Drawing.Size(75, 23);
             this.input.TabIndex = 10;
             this.input.Text = "input";
             this.input.UseVisualStyleBackColor = true;
@@ -134,10 +126,9 @@
             // 
             // jspinput
             // 
-            this.jspinput.Location = new System.Drawing.Point(1268, 745);
-            this.jspinput.Margin = new System.Windows.Forms.Padding(4);
+            this.jspinput.Location = new System.Drawing.Point(951, 596);
             this.jspinput.Name = "jspinput";
-            this.jspinput.Size = new System.Drawing.Size(100, 29);
+            this.jspinput.Size = new System.Drawing.Size(75, 23);
             this.jspinput.TabIndex = 11;
             this.jspinput.Text = "jsprun";
             this.jspinput.UseVisualStyleBackColor = true;
@@ -145,11 +136,10 @@
             // 
             // jsptext
             // 
-            this.jsptext.Location = new System.Drawing.Point(12, 249);
-            this.jsptext.Margin = new System.Windows.Forms.Padding(4);
+            this.jsptext.Location = new System.Drawing.Point(9, 199);
             this.jsptext.Multiline = true;
             this.jsptext.Name = "jsptext";
-            this.jsptext.Size = new System.Drawing.Size(371, 227);
+            this.jsptext.Size = new System.Drawing.Size(279, 182);
             this.jsptext.TabIndex = 12;
             // 
             // browerpanel
@@ -157,18 +147,16 @@
             this.browerpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.browerpanel.Location = new System.Drawing.Point(402, 53);
-            this.browerpanel.Margin = new System.Windows.Forms.Padding(4);
+            this.browerpanel.Location = new System.Drawing.Point(302, 42);
             this.browerpanel.Name = "browerpanel";
-            this.browerpanel.Size = new System.Drawing.Size(1082, 581);
+            this.browerpanel.Size = new System.Drawing.Size(812, 465);
             this.browerpanel.TabIndex = 15;
             // 
             // login
             // 
-            this.login.Location = new System.Drawing.Point(249, 745);
-            this.login.Margin = new System.Windows.Forms.Padding(4);
+            this.login.Location = new System.Drawing.Point(187, 596);
             this.login.Name = "login";
-            this.login.Size = new System.Drawing.Size(107, 46);
+            this.login.Size = new System.Drawing.Size(80, 37);
             this.login.TabIndex = 16;
             this.login.Text = "login";
             this.login.UseVisualStyleBackColor = true;
@@ -176,35 +164,35 @@
             // 
             // imagebutton
             // 
-            this.imagebutton.Location = new System.Drawing.Point(24, 745);
-            this.imagebutton.Margin = new System.Windows.Forms.Padding(4);
+            this.imagebutton.Location = new System.Drawing.Point(18, 596);
             this.imagebutton.Name = "imagebutton";
-            this.imagebutton.Size = new System.Drawing.Size(100, 46);
+            this.imagebutton.Size = new System.Drawing.Size(75, 37);
             this.imagebutton.TabIndex = 13;
             this.imagebutton.UseVisualStyleBackColor = true;
             // 
             // checksum
             // 
-            this.checksum.Location = new System.Drawing.Point(132, 758);
-            this.checksum.Margin = new System.Windows.Forms.Padding(4);
+            this.checksum.Location = new System.Drawing.Point(99, 606);
             this.checksum.Name = "checksum";
-            this.checksum.Size = new System.Drawing.Size(99, 25);
+            this.checksum.Size = new System.Drawing.Size(75, 21);
             this.checksum.TabIndex = 17;
             // 
             // framecheckboxlist
             // 
             this.framecheckboxlist.FormattingEnabled = true;
-            this.framecheckboxlist.Location = new System.Drawing.Point(426, 641);
+            this.framecheckboxlist.Location = new System.Drawing.Point(320, 513);
+            this.framecheckboxlist.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.framecheckboxlist.Name = "framecheckboxlist";
-            this.framecheckboxlist.Size = new System.Drawing.Size(835, 164);
+            this.framecheckboxlist.Size = new System.Drawing.Size(627, 132);
             this.framecheckboxlist.TabIndex = 18;
             // 
             // debugsaveCheckbox
             // 
             this.debugsaveCheckbox.AutoSize = true;
-            this.debugsaveCheckbox.Location = new System.Drawing.Point(23, 509);
+            this.debugsaveCheckbox.Location = new System.Drawing.Point(17, 407);
+            this.debugsaveCheckbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.debugsaveCheckbox.Name = "debugsaveCheckbox";
-            this.debugsaveCheckbox.Size = new System.Drawing.Size(133, 19);
+            this.debugsaveCheckbox.Size = new System.Drawing.Size(102, 16);
             this.debugsaveCheckbox.TabIndex = 19;
             this.debugsaveCheckbox.Text = "debugsavepage";
             this.debugsaveCheckbox.UseVisualStyleBackColor = true;
@@ -212,9 +200,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1533, 804);
+            this.ClientSize = new System.Drawing.Size(1150, 643);
             this.Controls.Add(this.debugsaveCheckbox);
             this.Controls.Add(this.framecheckboxlist);
             this.Controls.Add(this.checksum);
@@ -232,7 +220,6 @@
             this.Controls.Add(this.clickem);
             this.Controls.Add(this.goButton);
             this.Controls.Add(this.urlText);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.ResumeLayout(false);

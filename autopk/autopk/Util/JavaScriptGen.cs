@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace autopk.WebPage
+namespace Autopk.Util
 {
     class JavaScriptGen
     {
-       public string InputStringById(string id, string text)
+       public static string InputStringById(string id, string text)
         {
            // string jsp = "document.getElementById('" + id + "').value='" + text + "'"; 
             StringBuilder sb = new StringBuilder();
@@ -23,7 +23,7 @@ namespace autopk.WebPage
         }
 
 
-        public string InputStringByName(string id, string text)
+        public static string InputStringByName(string id, string text)
         {
             //var x = document.getElementsByName("wd");x[0].value='36136'
             StringBuilder sb = new StringBuilder();
@@ -37,7 +37,7 @@ namespace autopk.WebPage
             return sb.ToString();
         }
 
-        public   string ButtonClickById(string id)
+        public static string ButtonClickById(string id)
         {
         //    string jsp = "document.getElementById('" + id + "').click()";
 

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace autopk
+namespace Autopk.Util
 {
-    class Util
+    class Log
     {
-        public static void Log(string TAG, string msg)
+        public static void ShowLog(string TAG, string msg)
         {
             Console.WriteLine(" " + TAG + " : " + msg);
         }

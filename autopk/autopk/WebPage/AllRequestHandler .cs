@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Drawing;
-using autopk.Ui;
-using autopk.WebPage;
+using Autopk.Ui;
+using Autopk.WebPage;
 
-namespace autopk
+namespace Autopk
 {
     class AllRequestHandler : IRequestHandler
     {

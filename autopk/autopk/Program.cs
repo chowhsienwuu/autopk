@@ -1,11 +1,11 @@
-﻿using autopk.Ui;
+﻿using Autopk.Ui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace autopk
+namespace Autopk
 {
     static class Program
     {

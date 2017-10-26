@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace autopk.WebPage
+namespace Autopk.WebPage
 {
     class LoginPage
     {
-        public static string DEFAULT_PAGE = SearchPage.DEFAULT_PAGE +  "/search.aspx";
+        public static string TOPFRAME_TAIL = "/search.aspx";
 
         public static string CHECKSUM_STRING = "checknum.aspx?ts=";
 
