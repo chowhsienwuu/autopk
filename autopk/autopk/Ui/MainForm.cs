@@ -153,7 +153,6 @@ namespace Autopk.Ui
             }
 
             frame?.ExecuteJavaScriptAsync(jspstring);
-
         }
 
         private void login_Click(object sender, EventArgs e)
@@ -165,6 +164,11 @@ namespace Autopk.Ui
         {
             var requesthander = browser.RequestHandler as AllRequestHandler;
             requesthander.SaveAllRespnseForDebug = debugsaveCheckbox.Checked;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            _WebPageManager.SetOdersTwoSide(null);
         }
     }
 }

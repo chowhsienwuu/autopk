@@ -47,8 +47,5 @@ namespace Autopk.WebPage
         public static string JS_ORDER2_CONFIERM = "hwProwin._config.retype = \"ok\";hwProwin.close();";
         public static string JS_ORDER2_CHAC = "hwProwin.close();";
 
-
-
-
     }
 }

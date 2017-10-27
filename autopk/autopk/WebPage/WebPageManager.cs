@@ -97,7 +97,7 @@ namespace autopk.WebPage
 
                     break;
                 case PAGE_AGREEMNT:
-                     if (currenturl.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
+                    if (currenturl.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
                     {
                         WhichPage = PAGE_MAIN_BUSS;
                         Log.ShowLog(TAG, "login in success : ");
@@ -110,8 +110,46 @@ namespace autopk.WebPage
             }
         }
 
+        private FillNumber _FillNumber = new FillNumber();
+        public void SetOdersTwoSide(Dictionary<string, int>[][] srcdata)
+        {
+            var datamat = _FillNumber.CreateEmptyMatrix();
+
+            for (int i = 0; i < datamat.Length; i++)
+            {
+                for (int j = 0; j < datamat[i].Length; j++)
+                {
+                    Dictionary<string, int> d = datamat[i][j];
+                    d[d.Keys.ElementAt(0)] = 10 * (i + 1) + j;
+                }
+            }
+
+            var js = _FillNumber.SetNums(datamat);
+
+            ExecJs(GetPk10frame(), js);
+        }
 
 
+        private IFrame GetPk10frame()
+        {
+            if (!HasLogin())
+            {
+                return null;
+            }
+
+            var identifiers = _browser.GetBrowser().GetFrameIdentifiers();
+
+            foreach (var i in identifiers)
+            {
+                var _frame = _browser.GetBrowser().GetFrame(i);
+                if (_frame.Url.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
+                {
+                    return _frame;
+                }
+            }
+
+            return null;
+        }
 
 
         public bool HasLogin()
