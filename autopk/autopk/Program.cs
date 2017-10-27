@@ -1,4 +1,5 @@
-﻿using Autopk.Ui;
+﻿using autopk.WebPage;
+using Autopk.Ui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Autopk
             setting.Locale = "zh-CN";
             CefSharp.Cef.Initialize(setting);
             CefSharp.Cef.EnableHighDPISupport();
+
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
