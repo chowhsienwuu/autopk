@@ -9,12 +9,16 @@ using System.IO;
 using System.Drawing;
 using Autopk.Ui;
 using Autopk.WebPage;
+using Autopk.Util;
+using autopk.WebPage;
 
 namespace Autopk
 {
     class AllRequestHandler : IRequestHandler
     {
-        public event Action<byte[]> NotifyData;
+        const string TAG = "AllRequestHandler";
+
+        public event Action<byte[], string> NotifyData;
 
         private bool saveAllRespnseForDebug;
 
@@ -40,17 +44,22 @@ namespace Autopk
         {
          //   Console.WriteLine(" GetResourceResponseFilter ");
             var url = new Uri(request.Url);
-            if (url.AbsoluteUri.Contains(LoginPage.CHECKSUM_STRING))
+            if (url.AbsoluteUri.Contains(PageUrlCharacteristic.CHECKSUM_MID))
             {
                 var filter = FilterManager.CreateFilter(request.Identifier.ToString());
 
                 return filter;
             }
 
+            if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
+            { //用户信息.
+                var filter = FilterManager.CreateFilter(request.Identifier.ToString());
+                return filter;
+            }
+
             if (saveAllRespnseForDebug)
             {//save all file to 
                 var filter = FilterManager.CreateFilter(request.Identifier.ToString());
-
                 return filter;
             }
 
@@ -104,15 +113,30 @@ namespace Autopk
 
         public void OnResourceLoadComplete(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            if (request.Url.Contains(LoginPage.CHECKSUM_STRING))
+            
+            Log.ShowLog(TAG, "OnResourceLoadComplete " + request.Url);
+            if (request.Url.Contains(PageUrlCharacteristic.CHECKSUM_MID)) //验证码
             {
                 var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
 
-                NotifyData?.Invoke(filter.dataAll.ToArray());
+                NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.CHECKSUM_MID);
 
                 FilterManager.DelFileter(request.Identifier.ToString());
             }
 
+            if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
+             { //用户信息.
+                var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
+                FilterManager.DelFileter(request.Identifier.ToString());
+
+                NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.MEMBERINFO_END);
+                Log.ShowLog(TAG, "MEMINFO_END " + Encoding.Default.GetString(filter.dataAll.ToArray()));
+            }
+
+
+
+
+            #region test
             // for test.
             if (saveAllRespnseForDebug)
             {//save all file to 
@@ -136,6 +160,7 @@ namespace Autopk
                 File.WriteAllBytes("D://htmlsave//" + url, filter?.dataAll.ToArray());
              //  FilterManager.DelFileter(request.Identifier.ToString());
             }
+            #endregion 
         }
 
         public void OnResourceRedirect(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, ref string newUrl)

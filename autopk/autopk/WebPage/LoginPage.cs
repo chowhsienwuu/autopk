@@ -10,8 +10,6 @@ namespace Autopk.WebPage
     {
         public static string TOPFRAME_TAIL = "/search.aspx";
 
-        public static string CHECKSUM_STRING = "checknum.aspx?ts=";
-
         public static string Input_username = "txt_U_name";
         public static string Input_password = "txt_U_Password";
         public static string Input_Validata = "txt_validate";

@@ -12,6 +12,8 @@ namespace Autopk.WebPage
     class AllJsDialogHandler : IJsDialogHandler
     {
         const string TAG = "AllJsDialogHandler";
+
+        const string VALIED_NG = "验证码不正确";
         public void OnDialogClosed(IWebBrowser browserControl, IBrowser browser)
         {
             Log.ShowLog(TAG, "OnDialogClosed ");
@@ -26,6 +28,10 @@ namespace Autopk.WebPage
         public bool OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage)
         {
             Log.ShowLog(TAG, "OnJSDialog " + messageText);
+            if (messageText.Contains(VALIED_NG))
+            {
+              //  return true;
+            }
             return false;
         }
 

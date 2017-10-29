@@ -50,7 +50,8 @@ namespace Autopk.Ui
             var requesthander = browser.RequestHandler as AllRequestHandler;
             requesthander.NotifyData += Requesthander_NotifyData;
 
-            //   browser.JsDiaShowLogHandler = new AllJsDiaShowLogHandler();
+          //  browser.JsDialogHandler = new AllJsDialogHandler();
+
             _WebPageManager = new WebPageManager(browser);
 
             if (Uri.IsWellFormedUriString(urlText.Text, UriKind.RelativeOrAbsolute))
@@ -73,10 +74,16 @@ namespace Autopk.Ui
 
                 foreach (var i in identifiers)
                 {
-                    var frame = browser.GetBrowser().GetFrame(i);
-                    framecheckboxlist.Items.Add(frame.Url);
+                    try
+                    {
+                        var frame = browser.GetBrowser().GetFrame(i);
+                        framecheckboxlist.Items.Add(frame.Url);
 
-                    Log.ShowLog(TAG, "frame name " + frame.Name + " url " + frame.Url + " identifier: " + i);
+                        Log.ShowLog(TAG, "frame name " + frame.Name + " url " + frame.Url + " identifier: " + i);
+                    }
+                    catch
+                    {
+                    }
                 }
             }));
         }
@@ -90,13 +97,24 @@ namespace Autopk.Ui
             _WebPageManager.OnOnePageLoad(e);
         }
 
-        private void Requesthander_NotifyData(byte[] obj)
+        private void Requesthander_NotifyData(byte[] obj, string reason)
         {
             byte[] data = obj as byte[];
-            Image image = Image.FromStream(new MemoryStream(data));
+            
+            switch (reason)
+            {
+                case PageUrlCharacteristic.MEMBERINFO_END:
+                    memberinfo.UpdateMemberInfo(data);
+                    break;
+                case PageUrlCharacteristic.CHECKSUM_MID:
+                    Image image = Image.FromStream(new MemoryStream(data));
+                    Bitmap bitmap = new Bitmap(image);
+                    imagebutton.Image = bitmap;
+                    break;
+                default:
+                    break;
+            }
 
-            Bitmap bitmap = new Bitmap(image);
-            imagebutton.Image = bitmap;
         }
 
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs e)
@@ -168,7 +186,17 @@ namespace Autopk.Ui
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _WebPageManager.SetOdersTwoSide(null);
+            _WebPageManager.SetOdersTwoSidedebug(null);
+        }
+
+        private void clearbutton_Click(object sender, EventArgs e)
+        {
+            _WebPageManager.ClearAllOder();
+        }
+
+        private void tackorder_Click(object sender, EventArgs e)
+        {
+            _WebPageManager.TackOrder2();
         }
     }
 }

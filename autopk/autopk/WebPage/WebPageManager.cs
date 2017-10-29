@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace autopk.WebPage
 {
-    class WebPageManager
+    public class WebPageManager
     {
+        //
         private const string TAG = "webpageManager";
         private ChromiumWebBrowser _browser;
         public WebPageManager(ChromiumWebBrowser browser)
@@ -111,7 +112,7 @@ namespace autopk.WebPage
         }
 
         private FillNumber _FillNumber = new FillNumber();
-        public void SetOdersTwoSide(Dictionary<string, int>[][] srcdata)
+        public void SetOdersTwoSidedebug(Dictionary<string, int>[][] srcdata)
         {
             var datamat = _FillNumber.CreateEmptyMatrix();
 
@@ -126,11 +127,30 @@ namespace autopk.WebPage
 
             var js = _FillNumber.SetNums(datamat);
 
-            ExecJs(GetPk10frame(), js);
+            ExecJs(GetPk10frame(PK10_TWOSIDE_IFRAME.PK10_TWOSIDE_MAINBODY), js);
         }
 
+        internal void ClearAllOder()
+        {
+            var js = Pk10MainPage.JS_CLEAR_ALL;
 
-        private IFrame GetPk10frame()
+            ExecJs(GetPk10frame(PK10_TWOSIDE_IFRAME.PK10_TWOSIDE_MAINBODY), js);
+        }
+
+       internal void TackOrder2()
+        {
+            var js = Pk10MainPage.JS_ORDER2_STRING2;
+
+            ExecJs(GetPk10frame(PK10_TWOSIDE_IFRAME.PK10_TWOSIDE_MAINBODY), js);
+        }
+
+        enum PK10_TWOSIDE_IFRAME{
+            PK10_TWOSIDE_MAINBODY,
+            PK10_TWOSIDE_LEFT,
+            PK10_TWOSIDE_MAIN_ASP,
+        };
+
+        private IFrame GetPk10frame(PK10_TWOSIDE_IFRAME page)
         {
             if (!HasLogin())
             {
@@ -142,9 +162,20 @@ namespace autopk.WebPage
             foreach (var i in identifiers)
             {
                 var _frame = _browser.GetBrowser().GetFrame(i);
-                if (_frame.Url.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
-                {
-                    return _frame;
+                
+                switch (page){
+                    case PK10_TWOSIDE_IFRAME.PK10_TWOSIDE_LEFT:
+                        break;
+                    case PK10_TWOSIDE_IFRAME.PK10_TWOSIDE_MAINBODY:
+                        if (_frame.Url.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
+                        {
+                            return _frame;
+                        }
+                        break;
+                    case PK10_TWOSIDE_IFRAME.PK10_TWOSIDE_MAIN_ASP:
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -156,6 +187,7 @@ namespace autopk.WebPage
         {
             return WhichPage == PAGE_MAIN_BUSS;
         }
+
 
 
         public void LoginIn(string username, string passwd, string vilValidatatext)
@@ -185,6 +217,12 @@ namespace autopk.WebPage
 
         public void ExecJs(IFrame frame ,string text)
         {
+            if (frame == null || string.IsNullOrEmpty(text))
+            {
+                Log.ShowLog(TAG, "do not run this js");
+                return;
+            }
+
             Log.ShowLog(TAG, "exec js on url " + frame.Url + "\n" + "js: " + text);
 
             var task = frame.EvaluateScriptAsync(text, null);
