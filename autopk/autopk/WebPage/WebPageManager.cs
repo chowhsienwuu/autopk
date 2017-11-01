@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace autopk.WebPage
@@ -102,6 +103,18 @@ namespace autopk.WebPage
                     {
                         WhichPage = PAGE_MAIN_BUSS;
                         Log.ShowLog(TAG, "login in success : ");
+                        try
+                        {
+                            if (!threadhasstart)
+                            {
+                                workerThread = new Thread(new ThreadStart(DoLoopWork));
+                                workerThread.Start();
+                                threadhasstart = true;
+                            }
+                        }
+                        catch
+                        {
+                        }
                     }
                     break;
                 case PAGE_MAIN_BUSS:
@@ -110,6 +123,20 @@ namespace autopk.WebPage
                     break;
             }
         }
+        private bool threadhasstart = false;
+        Thread workerThread = null;
+        private void DoLoopWork()
+        {
+            while (true)
+            {
+                Log.ShowLog(TAG, "doloopwork check");
+
+                Thread.Sleep(1000); // sleep 1sec.
+            }
+        }
+
+
+
 
         private FillNumber _FillNumber = new FillNumber();
         public void SetOdersTwoSidedebug(Dictionary<string, int>[][] srcdata)
@@ -188,8 +215,6 @@ namespace autopk.WebPage
             return WhichPage == PAGE_MAIN_BUSS;
         }
 
-
-
         public void LoginIn(string username, string passwd, string vilValidatatext)
         {
             WhichPage = PAGE_LOGIN;
@@ -215,27 +240,37 @@ namespace autopk.WebPage
             }
         }
 
-        public void ExecJs(IFrame frame ,string text)
+        public Task<JavascriptResponse> ExecJs(IFrame frame ,string text)
         {
             if (frame == null || string.IsNullOrEmpty(text))
             {
                 Log.ShowLog(TAG, "do not run this js");
-                return;
+                return null;
             }
 
             Log.ShowLog(TAG, "exec js on url " + frame.Url + "\n" + "js: " + text);
 
             var task = frame.EvaluateScriptAsync(text, null);
-
-            task.ContinueWith(t =>
+            if (task != null)
             {
-                if (!t.IsFaulted)
+              //  task.Wait();
+                if (!task.IsFaulted)
                 {
-                    var response = t.Result;
-                    Log.ShowLog(TAG, "response:" + response.Result + " Message :" + 
-                        response.Message + " success:" + response.Success);
+                    return task;
                 }
-            });
+            }
+
+            return null;
+
+            //task.ContinueWith(t =>
+            //{
+            //    if (!t.IsFaulted)
+            //    {
+            //        var response = t.Result;
+            //        Log.ShowLog(TAG, "response:" + response.Result + " Message :" + 
+            //            response.Message + " success:" + response.Success);
+            //    }
+            //});
         }
 
     }

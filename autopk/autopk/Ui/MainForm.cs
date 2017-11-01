@@ -97,6 +97,7 @@ namespace Autopk.Ui
             _WebPageManager.OnOnePageLoad(e);
         }
 
+
         private void Requesthander_NotifyData(byte[] obj, string reason)
         {
             byte[] data = obj as byte[];
@@ -204,8 +205,6 @@ namespace Autopk.Ui
             //});
             return task;
         }
-
-
 
         private void login_Click(object sender, EventArgs e)
         {

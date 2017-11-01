@@ -15,14 +15,11 @@
 
 
 				
-function myFunction()
-{
-	var kjtime = document.getElementById("hClockTime_C").innerHTML;
-	alert(kjtime);
-  //return document.getElementById('kw').value;
-}
-myFunction();
+function ___statuscheck(){	return (document.getElementById("t_LID").innerHTML + "~~~~" + document.getElementById("hClockTime_C").innerHTML + "~~~~" +  document.getElementById("hClockTime_O").innerHTML);}
+___statuscheck();
+ MainFrom : response:648483~~~~距离开盘：<b>09</b>:<b>03</b>:<b>57</b>~~~~距离开奖：<b style="color:Red;">09</b>:<b style="color:Red;">09</b>:<b style="color:Red;">58</b> Message : success:Tru
 
+多少期  t_LID
 
                  <td height="24" width="28%"><b id="t_LID" style="color: green;"></b>期　<b style="font-weight: bold; color: #2836f4;">两面盘</b></td>
                  <td align="right" width="25%"><span id="hClockTime_C"></span></td>
