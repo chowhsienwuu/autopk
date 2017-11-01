@@ -94,7 +94,6 @@ namespace autopk.WebPage
             //10 begain
             matrix[9][0] = new Dictionary<string, int>();
             matrix[9][0]["r630_1"] = (0);
-
             //和数小
             matrix[9][1] = new Dictionary<string, int>();
             matrix[9][1]["r630_2"] = (0);

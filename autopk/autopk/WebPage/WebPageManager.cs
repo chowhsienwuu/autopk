@@ -226,14 +226,16 @@ namespace autopk.WebPage
             Log.ShowLog(TAG, "exec js on url " + frame.Url + "\n" + "js: " + text);
 
             var task = frame.EvaluateScriptAsync(text, null);
-            
-            //task.ContinueWith(t =>
-            //{
-            //    if (!t.IsFaulted)
-            //    {
-            //        var response = t.Result;
-            //    }
-            //}, TaskScheduler.FromCurrentSynchronizationContext());
+
+            task.ContinueWith(t =>
+            {
+                if (!t.IsFaulted)
+                {
+                    var response = t.Result;
+                    Log.ShowLog(TAG, "response:" + response.Result + " Message :" + 
+                        response.Message + " success:" + response.Success);
+                }
+            });
         }
 
     }

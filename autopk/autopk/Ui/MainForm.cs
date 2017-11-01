@@ -114,7 +114,6 @@ namespace Autopk.Ui
                 default:
                     break;
             }
-
         }
 
         private void OnBrowserAddressChanged(object sender, AddressChangedEventArgs e)
@@ -149,29 +148,64 @@ namespace Autopk.Ui
 
         private void jspinput_Click(object sender, EventArgs e)
         {
-            var jspstring = jsptext.Text;
-            Console.WriteLine("jsptext is  : " + jspstring);
-
-            string selecturl = framecheckboxlist.SelectedItem.ToString();
-            if (string.IsNullOrEmpty(selecturl))
+            var ret =    test();
+            if (ret != null)
             {
-                return;
+                var response = ret.Result;
+                Log.ShowLog(TAG, "result " + response);
+                if (response.Success)
+                {
+                    Log.ShowLog(TAG, "response:" + response.Result + " Message :" +
+                            response.Message + " success:" + response.Success);
+                }
+            }
+
+        }
+
+        private Task<JavascriptResponse> test()
+        {
+//            function myFunction()
+//{
+//                return document.getElementById('kw').value;
+//            }
+//            myFunction();
+
+            var jspstring = jsptext.Text;
+            Log.ShowLog(TAG, "jsptext is  : " + jspstring);
+
+            var selecturl = framecheckboxlist.SelectedItem;
+            if (selecturl == null || string.IsNullOrEmpty(selecturl.ToString()))
+            {
+                return null;
             }
 
             var identifiers = browser.GetBrowser().GetFrameIdentifiers();
-          //  Console.WriteLine("identifiers count " + identifiers.Count);
             IFrame frame = null;
             foreach (var i in identifiers)
             {
-                if (browser.GetBrowser().GetFrame(i).Url.Equals(selecturl)){
+                if (browser.GetBrowser().GetFrame(i).Url.Equals(selecturl))
+                {
                     frame = browser.GetBrowser().GetFrame(i);
                 }
-                //Console.WriteLine("mainframe i  : " + i + "name " + frame.Name + " " + frame.Identifier);
-                //Console.WriteLine("mainframe url is  : " + frame.Url);
             }
 
-            frame?.ExecuteJavaScriptAsync(jspstring);
+            var task = frame?.EvaluateScriptAsync(jspstring, null);
+        //    task?.Wait();
+            Log.ShowLog(TAG, "task run end");
+         
+            //task?.ContinueWith(t =>
+            //{
+            //    if (!t.IsFaulted)
+            //    {
+            //        var response = t.Result;
+            //        Log.ShowLog(TAG, "response:" + response.Result + " Message :" +
+            //            response.Message + " success:" + response.Success);
+            //    }
+            //});
+            return task;
         }
+
+
 
         private void login_Click(object sender, EventArgs e)
         {

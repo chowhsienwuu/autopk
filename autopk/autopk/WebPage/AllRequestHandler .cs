@@ -42,7 +42,13 @@ namespace Autopk
 
         public IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response)
         {
-         //   Console.WriteLine(" GetResourceResponseFilter ");
+            if (saveAllRespnseForDebug)
+            {//save all file to 
+                var filter = FilterManager.CreateFilter(request.Identifier.ToString());
+                return filter;
+            }
+
+            //   Console.WriteLine(" GetResourceResponseFilter ");
             var url = new Uri(request.Url);
             if (url.AbsoluteUri.Contains(PageUrlCharacteristic.CHECKSUM_MID))
             {
@@ -53,12 +59,6 @@ namespace Autopk
 
             if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
             { //用户信息.
-                var filter = FilterManager.CreateFilter(request.Identifier.ToString());
-                return filter;
-            }
-
-            if (saveAllRespnseForDebug)
-            {//save all file to 
                 var filter = FilterManager.CreateFilter(request.Identifier.ToString());
                 return filter;
             }
@@ -121,20 +121,22 @@ namespace Autopk
 
                 NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.CHECKSUM_MID);
 
-                FilterManager.DelFileter(request.Identifier.ToString());
+                if (!saveAllRespnseForDebug)
+                {
+                    FilterManager.DelFileter(request.Identifier.ToString());
+                }
             }
 
             if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
              { //用户信息.
                 var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
-                FilterManager.DelFileter(request.Identifier.ToString());
-
+                if (!saveAllRespnseForDebug)
+                {
+                    FilterManager.DelFileter(request.Identifier.ToString());
+                }
                 NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.MEMBERINFO_END);
                 Log.ShowLog(TAG, "MEMINFO_END " + Encoding.Default.GetString(filter.dataAll.ToArray()));
             }
-
-
-
 
             #region test
             // for test.
