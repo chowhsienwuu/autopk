@@ -11,7 +11,7 @@ using Autopk.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace autopk.Ui
+namespace Autopk.Ui
 {
     public partial class Memberinfo : UserControl
     {

@@ -1,4 +1,4 @@
-﻿namespace autopk.Ui
+﻿namespace Autopk.Ui
 {
     partial class Memberinfo
     {

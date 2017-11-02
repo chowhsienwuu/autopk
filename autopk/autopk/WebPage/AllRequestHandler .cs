@@ -10,7 +10,7 @@ using System.Drawing;
 using Autopk.Ui;
 using Autopk.WebPage;
 using Autopk.Util;
-using autopk.WebPage;
+using Autopk.WebPage;
 
 namespace Autopk
 {

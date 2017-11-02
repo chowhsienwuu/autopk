@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace autopk.Properties {
+namespace Autopk.Properties {
     using System;
     
     

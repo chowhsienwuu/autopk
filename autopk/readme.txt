@@ -17,7 +17,8 @@
 				
 function ___statuscheck(){	return (document.getElementById("t_LID").innerHTML + "~~~~" + document.getElementById("hClockTime_C").innerHTML + "~~~~" +  document.getElementById("hClockTime_O").innerHTML);}
 ___statuscheck();
- MainFrom : response:648483~~~~距离开盘：<b>09</b>:<b>03</b>:<b>57</b>~~~~距离开奖：<b style="color:Red;">09</b>:<b style="color:Red;">09</b>:<b style="color:Red;">58</b> Message : success:Tru
+648483~~~~距离开盘：<b>09</b>:<b>03</b>:<b>57</b>~~~~距离开奖：<b style="color:Red;">09</b>:<b style="color:Red;">09</b>:<b style="color:Red;">58</b>
+648483~~~~距离开盘：09:03:57~~~~距离开奖：09:09:58
 
 多少期  t_LID
 

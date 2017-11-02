@@ -13,7 +13,7 @@ using System.IO;
 using Autopk.WebPage;
 using System.Threading;
 using Autopk.Util;
-using autopk.WebPage;
+using Autopk.WebPage;
 
 namespace Autopk.Ui
 {
@@ -97,7 +97,6 @@ namespace Autopk.Ui
             _WebPageManager.OnOnePageLoad(e);
         }
 
-
         private void Requesthander_NotifyData(byte[] obj, string reason)
         {
             byte[] data = obj as byte[];
@@ -142,7 +141,8 @@ namespace Autopk.Ui
         {
             if (Uri.IsWellFormedUriString(urlText.Text, UriKind.RelativeOrAbsolute))
             {
-                _WebPageManager.WhichPage = WebPageManager.PAGE_INIT;
+                // _WebPageManager.WhichPage = WebPageManager.PAGE_INIT;
+                _WebPageManager.Reset();
                 browser.Load(urlText.Text);
             }
         }

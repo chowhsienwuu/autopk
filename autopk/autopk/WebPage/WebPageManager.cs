@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace autopk.WebPage
+namespace Autopk.WebPage
 {
     public class WebPageManager
     {
@@ -40,6 +40,17 @@ namespace autopk.WebPage
             set
             {
                 whichPage = value;
+            }
+        }
+
+        public void Reset()
+        {
+            WhichPage = WebPageManager.PAGE_INIT;
+            if (workerThread != null)
+            {
+                KeepCheck = false;
+                threadhasstart = false;
+                workerThread.Abort();
             }
         }
 
@@ -108,6 +119,7 @@ namespace autopk.WebPage
                             if (!threadhasstart)
                             {
                                 workerThread = new Thread(new ThreadStart(DoLoopWork));
+                                KeepCheck = true;
                                 workerThread.Start();
                                 threadhasstart = true;
                             }
@@ -123,13 +135,31 @@ namespace autopk.WebPage
                     break;
             }
         }
+
+       
         private bool threadhasstart = false;
         Thread workerThread = null;
+        private bool KeepCheck = false;
         private void DoLoopWork()
         {
-            while (true)
+            string getpagestatusjs = "function ___statuscheck(){	return (document.getElementById(\"t_LID\").innerHTML + \"~~~~\" + document.getElementById(\"hClockTime_C\").innerHTML + \"~~~~\" +  document.getElementById(\"hClockTime_O\").innerHTML);}___statuscheck(); ";
+            while (KeepCheck)
             {
                 Log.ShowLog(TAG, "doloopwork check");
+
+                var rettask = ExecJs(GetPk10frame(PK10_TWOSIDE_IFRAME.PK10_TWOSIDE_MAINBODY), getpagestatusjs);
+                if (rettask == null)
+                {
+                    continue;
+                }
+                var retstr = rettask.Result.Result.ToString();
+                if (!string.IsNullOrEmpty(retstr))
+                {
+                    continue;
+                }
+                retstr.Split(new string[] { "~~~~" }, StringSplitOptions.RemoveEmptyEntries);
+
+
 
                 Thread.Sleep(1000); // sleep 1sec.
             }
