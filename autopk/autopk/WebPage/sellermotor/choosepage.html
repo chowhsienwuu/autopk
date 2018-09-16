@@ -1,0 +1,631 @@
+﻿
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>选品</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script src="/cssandjs/respond.min.js"></script>
+    <script src="/cssandjs/excanvas.min.js"></script>
+    <script src="/cssandjs/ie8.fix.min.js"></script>
+    <![endif]-->
+    <link href="/cssandjs/font-awesome/css/font-awesome.min.css?v=1535082744" rel="stylesheet" />
+    <link href="/cssandjs/simple-line-icons/simple-line-icons.min.css?v=1535082744" rel="stylesheet" />
+    <link href="/cssandjs/icon-font/iconfont.css?v=1536990436" rel="stylesheet" />
+    <link href="/cssandjs/bootstrap/css/bootstrap.min.css?v=1535082744" rel="stylesheet" />
+    <link href="/cssandjs/bootstrap-table/bootstrap-table.min.css?v=1535082744" rel="stylesheet" />
+    <link href="/cssandjs/bootstrap-editable/css/bootstrap-editable.css?v=1535082744" rel="stylesheet" />
+    <link href="/cssandjs/bootstrap-select/css/bootstrap-select.min.css?v=1535082744" rel="stylesheet" />
+    <link href="/cssandjs/components-rounded.css?v=1535082744" rel="stylesheet" />
+    <link href="/selection/layout.css?v=1535082745" rel="stylesheet" />
+    <link href="/selection/darkblue.css?v=1535082744" rel="stylesheet" />
+    <link href="/selection/custom.css?v=1536990436" rel="stylesheet" />
+    <link href="/skin-themeroller/ui.fancytree.css?v=1535082745" rel="stylesheet" />
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/A8577FFF-35DC-1A4F-8493-4747C052372E/main.js" charset="UTF-8"></script>
+    <script src="/cssandjs/jquery.min.js?v=1535082744"></script>
+    <script src="/cssandjs/bootstrap/js/bootstrap.min.js?v=1535082744"></script>
+    <script src="/cssandjs/bootstrap-table/bootstrap-table.min.js?v=1535082744"></script>
+    <script src="/cssandjs/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js?v=1535082744"></script>
+    <script src="/cssandjs/icon-font/iconfont.js?v=1536990436"></script>
+    <script src="/cssandjs/bootstrap-select/js/bootstrap-select.min.js?v=1535082744"></script>
+    <script src="/cssandjs/js.cookie.min.js?v=1535082744"></script>
+    <script src="/cssandjs/jquery-template/jquery.tmpl.min.js?v=1535082744"></script>
+    <script src="/cssandjs/jquery-validation/js/jquery.validate.min.js?v=1535082744"></script>
+    <script src="/cssandjs/jquery-validation/js/additional-methods.min.js?v=1535082744"></script>
+    <script src="/cssandjs/jquery.sparkline.min.js?v=1535082744"></script>
+    <script src="/cssandjs/jquery.blockui.min.js?v=1535082744"></script>
+    <script src="/cssandjs/app.js?v=1535082744"></script>
+    <script src="/cssandjs/layout.js?v=1535082744"></script>
+    <script src="/cssandjs/pagejs/selection/selection_layout.js?v=1536990436"></script>
+    <script src="/selection/msgbox.js?v=1535082745"></script>
+    <script src="/cssandjs/baidu.js?v=1535525405"></script>
+    <script src="/selection/jquery.stickytableheaders.js?v=1535082745"></script>
+    <script src="/selection/jquery-ui.min.js?v=1535082745"></script>
+    <script src="/selection/jquery.fancytree-all.min.js?v=1535082745"></script>
+    <script src="/cssandjs/echarts/echarts.min.js?v=1535082744"></script>
+    <script src="/cssandjs/pagejs/selection/big_data.js?v=1536990436"></script>
+    <script src="/cssandjs/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+</head>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
+
+    <div class="page-wrapper">
+        <div class="page-spinner-bar hide">
+            <span class="covering"></span>
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+        <div class="page-header navbar navbar-fixed-top">
+            <div class="page-header-inner ">
+                <div class="page-logo">
+                    <a href="javascript:void(0);" class="admin-header-logo">
+                        <img src="/image/logo.png" alt="logo" class="logo-default" />
+                    </a>
+                    <div class="menu-toggler sidebar-toggler">
+                        <span></span>
+                    </div>
+                </div>
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span></span>
+                </a>
+                <div class="top-menu">
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown dropdown-user">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" title="秀逗魔导士">
+                                <img alt="" class="img-circle" src="/css/layouts/layout/img/avatar3_small.jpg" />
+                                <span class="username username-hide-on-mobile">
+                                    秀逗魔导士
+                                </span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <!--                                <li>-->
+                                <!--                                    <a href="index.php?r=market/user_info">--><!--</a>-->
+                                <!--                                </li>-->
+                                <!--                                <li>-->
+                                <!--                                    <a href="index.php?r=market/user_service">--><!--</a>-->
+                                <!--                                </li>-->
+                                <!--                                <li>-->
+                                <!--                                    <a href="index.php?r=market/user_coupons">--><!--</a>-->
+                                <!--                                </li>-->
+                                <!--                                <li>-->
+                                <!--                                    <a href="index.php?r=market/user_recharge">--><!--</a>-->
+                                <!--                                </li>-->
+                                <!--                                <li>-->
+                                <!--                                    <a href="index.php?r=market/user_purchases">--><!--</a>-->
+                                <!--                                </li>-->
+                                <!--                                <li>-->
+                                <!--                                    <a href="index.php?r=market/user_safe">--><!--</a>-->
+                                <!--                                </li>-->
+                                <li>
+                                    <a href="/user/auth/logout">退出</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+        <div class="page-container">
+            <div class="page-sidebar-wrapper">
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                    <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                        <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                        <li class="sidebar-toggler-wrapper hide">
+                            <div class="sidebar-toggler">
+                                <span></span>
+                            </div>
+                        </li>
+                        <li class="nav-item start active open">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="iconfont icon-yibiaopan"></i>
+                                <span class="title">Amazon选品引擎</span>
+                                <span class="selected"></span>
+                                <span class="arrow open"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item start active open" id="selection-nav-item">
+                                    <a href="/selection/index/big-data" class="nav-link ">
+                                        <span class="title">Amazon智能选品</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start " id="plugin-nav-item">
+                                    <a href="/selection/index/plugin" class="nav-link ">
+                                        <span class="title">智能浏览器插件</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start " id="market-nav-item">
+                                    <a href="/selection/index/market-insight" class="nav-link ">
+                                        <span class="title negative">市场洞察</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start " id="listing-nav-item">
+                                    <a href="/selection/index/listing-perspective" class="nav-link ">
+                                        <span class="title negative">Listing透视</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="page-content-wrapper">
+                <div class="page-content">
+
+
+                    <div class="selection-content-box">
+                        <div class="selection-container" data-url="/selection/index">
+                            <div class="selection-market">
+                                <div class="selection-subtitle pull-left" style="line-height: 28px;">市场：</div>
+                                <div class="selection-market-container">
+                                    <div class="selection-market-item  active" data-type="us" data-category='[{"name":"Appliances","title":"Appliances\uff08\u5bb6\u7535\uff09","lv":1,"lazy":true,"catId":2619525011,"rootcat":2619525011,"upcat":2619525011,"countryCode":"us","time_remaining":"14\u59292\u5c0f\u65f651\u5206\u949f"}]'>
+                                        <img src="/image/US.png" alt="" />
+                                    </div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="selection-category" id="selection-category" data-category='[{"name":"Appliances","title":"Appliances\uff08\u5bb6\u7535\uff09","lv":1,"lazy":true,"catId":2619525011,"rootcat":2619525011,"upcat":2619525011,"countryCode":"us","time_remaining":"14\u59292\u5c0f\u65f651\u5206\u949f"}]'>
+                                <div class="selection-subtitle">分类：</div>
+                                <div class="selection-category-container"></div>
+                            </div>
+                            <script type="text/template" id="category-tpl">
+                                <div class="selection-category-button" data-catId="${catId}" data-lv="${lv}" data-rootcat="${rootcat}" data-title="${title}">${title}</div>
+                            </script>
+                            <div class="selection-filter">
+                                <div class="selection-subtitle" style="position: absolute; left: 0; top: 20px;">商品筛选：</div>
+                                <div class="selection-filter-item" data-type="price">
+                                    <div class="selection-filter-subtitle">价格：<i class="iconfont icon-notification tooltips" data-placement="top" title="产品当前Buybox价格"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="10" id="selection-price1">&lt; 10</div>
+                                    <div class="selection-filter-button" data-min="10" data-max="20" id="selection-price2">10 - 20</div>
+                                    <div class="selection-filter-button" data-min="20" data-max="30" id="selection-price3">20 - 30</div>
+                                    <div class="selection-filter-button" data-min="30" data-max="50" id="selection-price4">30 - 50</div>
+                                    <div class="selection-filter-button" data-min="50" data-max="100" id="selection-price5">50 - 100</div>
+                                    <div class="selection-filter-button" data-min="100" data-max="" id="selection-price6">&gt; 100</div>
+                                    <div class="selection-filter-custom">
+                                        <div class="custom-label">自定义：</div>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <div class="selection-filter-separate">到</div>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="avg_sales">
+                                    <div class="selection-filter-subtitle">日均销量：<i class="iconfont icon-notification tooltips" data-placement="top" title="销量数据为估算值。我们每一刻都在努力优化算法，提高估算准确度。如果您发现我们的估算销量与您产品的实际销量有偏差，非常欢迎通过页面右侧反馈通道向我们指正。(销量误差对比时请保证您是该ASIN的唯一卖家）"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="10">&lt; 10</div>
+                                    <div class="selection-filter-button" data-min="10" data-max="20">10 - 20</div>
+                                    <div class="selection-filter-button" data-min="20" data-max="30">20 - 30</div>
+                                    <div class="selection-filter-button" data-min="30" data-max="50">30 - 50</div>
+                                    <div class="selection-filter-button" data-min="50" data-max="100">50 - 100</div>
+                                    <div class="selection-filter-button" data-min="100" data-max="">&gt; 100</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="avg_rev">
+                                    <div class="selection-filter-subtitle">日均销售额：<i class="iconfont icon-notification tooltips" data-placement="top" title="销售额数据为估算值。我们每一刻都在努力优化算法，提高估算准确度。如果您发现我们的估算销售额与您产品的实际销售额有偏差，非常欢迎通过页面右侧反馈通道向我们指正。(销售额误差对比时请保证您是该ASIN的唯一卖家）"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="200">&lt; 200</div>
+                                    <div class="selection-filter-button" data-min="200" data-max="500">200 - 500</div>
+                                    <div class="selection-filter-button" data-min="500" data-max="1000">500 - 1k</div>
+                                    <div class="selection-filter-button" data-min="1000" data-max="5000">1k - 5k</div>
+                                    <div class="selection-filter-button" data-min="5000" data-max="10000">5k - 10k</div>
+                                    <div class="selection-filter-button" data-min="10000" data-max="">&gt; 10k</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="fund_rate">
+                                    <div class="selection-filter-subtitle">毛利率：<i class="iconfont icon-notification tooltips" data-placement="top" title="计算公式为：（毛利率=售价-Amazon销售佣金-FBA费用）/售价"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="50">&lt; 50%</div>
+                                    <div class="selection-filter-button" data-min="50" data-max="55">50 - 55%</div>
+                                    <div class="selection-filter-button" data-min="55" data-max="60">55 - 60%</div>
+                                    <div class="selection-filter-button" data-min="60" data-max="65">60 - 65%</div>
+                                    <div class="selection-filter-button" data-min="65" data-max="70">65 - 70%</div>
+                                    <div class="selection-filter-button" data-min="70" data-max="">&gt; 70%</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" min="0" max="100" class="form-control selection-filter-input" name="min" placeholder="最小值(%)" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="0" max="100" class="form-control selection-filter-input" name="max" placeholder="最大值(%)" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="rank">
+                                    <div class="selection-filter-subtitle">BSR排名：<i class="iconfont icon-notification tooltips" data-placement="top" title="Amazon一级类目BSR排名"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="100">&lt; 100</div>
+                                    <div class="selection-filter-button" data-min="100" data-max="500">100 - 500</div>
+                                    <div class="selection-filter-button" data-min="500" data-max="1000">500 - 1k</div>
+                                    <div class="selection-filter-button" data-min="1000" data-max="5000">1k - 5k</div>
+                                    <div class="selection-filter-button" data-min="5000" data-max="10000">5k - 10k</div>
+                                    <div class="selection-filter-button" data-min="10000" data-max="">&gt; 10k</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" min="1" step="20" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="1" step="20" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="reviews">
+                                    <div class="selection-filter-subtitle">Review数量：</div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="10">&lt; 10</div>
+                                    <div class="selection-filter-button" data-min="10" data-max="20">10 - 20</div>
+                                    <div class="selection-filter-button" data-min="20" data-max="50">20 - 50</div>
+                                    <div class="selection-filter-button" data-min="50" data-max="100">50 - 100</div>
+                                    <div class="selection-filter-button" data-min="100" data-max="200">100 - 200</div>
+                                    <div class="selection-filter-button" data-min="200" data-max="">&gt; 200</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="rating">
+                                    <div class="selection-filter-subtitle">评分：</div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="3.0">&lt; 3.0</div>
+                                    <div class="selection-filter-button" data-min="3.0" data-max="3.5">3.0 - 3.5</div>
+                                    <div class="selection-filter-button" data-min="3.5" data-max="4.0">3.5 - 4.0</div>
+                                    <div class="selection-filter-button" data-min="4.0" data-max="4.2">4.0 - 4.2</div>
+                                    <div class="selection-filter-button" data-min="4.2" data-max="4.5">4.2 - 4.5</div>
+                                    <div class="selection-filter-button" data-min="4.5" data-max="">&gt; 4.5</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" min="0" max="5" step="0.1" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="0" max="5" step="0.1" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="review_rates">
+                                    <div class="selection-filter-subtitle">留评率：<i class="iconfont icon-notification tooltips" data-placement="top" title="计算公式为：Review数量/总销量。其中总销量系估算值。"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="0.5">&lt; 0.5%</div>
+                                    <div class="selection-filter-button" data-min="0.5" data-max="1">0.5 - 1%</div>
+                                    <div class="selection-filter-button" data-min="1" data-max="2">1 - 2%</div>
+                                    <div class="selection-filter-button" data-min="2" data-max="3">2 - 3%</div>
+                                    <div class="selection-filter-button" data-min="3" data-max="5">3 - 5%</div>
+                                    <div class="selection-filter-button" data-min="5" data-max="">&gt; 5%</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" min="0" max="100" step="0.1" class="form-control selection-filter-input" name="min" placeholder="最小值(%)" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="0" max="100" step="0.1" class="form-control selection-filter-input" name="max" placeholder="最大值(%)" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="publish_date">
+                                    <div class="selection-filter-subtitle">上架时间：<i class="iconfont icon-notification tooltips" data-placement="top" title="此项数据根据产品最早的一条评论推算，仅供参考。"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="" data-max="1">&lt; 1个月</div>
+                                    <div class="selection-filter-button" data-min="" data-max="3">&lt; 3个月</div>
+                                    <div class="selection-filter-button" data-min="" data-max="6">&lt; 6个月</div>
+                                    <div class="selection-filter-button" data-min="" data-max="12">&lt; 1年</div>
+                                    <div class="selection-filter-button" data-min="" data-max="24">&lt; 2年</div>
+                                    <div class="selection-filter-button" data-min="24" data-max="">&gt; 2年</div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" class="form-control selection-filter-input" name="min" placeholder="最小值/月" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" class="form-control selection-filter-input" name="max" placeholder="最大值/月" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="fba">
+                                    <div class="selection-filter-subtitle">FBA运费：<i class="iconfont icon-notification tooltips" data-placement="top" title="FBA费用系根据产品重量计算，而有些产品卖家在填写产品重量时可能没有经过严格称重，仅供参考。"></i></div>
+                                    <div class="selection-filter-button none active last" data-min="" data-max="">不限</div>
+                                    <div class="selection-filter-button" data-min="2.41" data-max="2.41" id="selection-fba1">2.41</div>
+                                    <div class="selection-filter-button" data-min="3.19" data-max="3.19" id="selection-fba2">3.19</div>
+                                    <div class="selection-filter-button" data-min="4.71" data-max="4.71" id="selection-fba3">4.71</div>
+                                    <div class="selection-filter-button" data-min="4.71" data-max="" id="selection-fba4">&gt; 4.71</div>
+                                    <div style="-webkit-box-flex: 2;-moz-box-flex: 2;-webkit-flex: 2;-ms-flex: 2;flex: 2; margin-left: 24px;"></div>
+                                    <div class="selection-filter-custom">
+                                        <span class="custom-label">自定义：</span>
+                                        <input type="number" step="0.1" min="0" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" step="0.1" min="0" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+                                    </div>
+                                </div>
+                                <div class="selection-filter-item" data-type="bb_seller">
+                                    <div class="selection-filter-subtitle">BuyBox卖家类型：</div>
+                                    <div class="selection-filter-button none active last" data-value="">不限</div>
+                                    <div class="selection-filter-button" data-value="Amazon">Amazon</div>
+                                    <div class="selection-filter-button" data-value="FBA">FBA</div>
+                                    <div class="selection-filter-button" data-value="FBM">FBM</div>
+                                    <div class="selection-filter-button" data-value="none">无BB卖家</div>
+                                    <div style="-webkit-box-flex: 5;-moz-box-flex: 5;-webkit-flex: 5;-ms-flex: 5;flex: 5; margin-left: 24px;"></div>
+                                </div>
+                                <div class="selection-filter-item" data-type="keyword">
+                                    <div class="selection-filter-subtitle">关键词：<i class="iconfont icon-notification tooltips" data-placement="top" title="仅筛选商品标题，不能等同于Amazon搜索功能。"></i></div>
+                                    <input type="text" class="form-control selection-filter-text" name="keyword" placeholder="包含关键词" style="margin-right: 15px;" />
+                                    <input type="text" class="form-control selection-filter-text" name="negative_keyword" placeholder="排除关键词" />
+                                </div>
+                            </div>
+                            <div class="selection-filter-footer">
+                                <button type="button" class="btn btn-orange btn-sellermotor" id="selection-confirm" data-flag="1">筛选</button>
+                                <button type="button" class="btn btn-gray btn-sellermotor" id="selection-reset">重置</button>
+                            </div>
+                        </div>
+                        <div class="selection-result" style="position: relative; display: none;">
+                            <div class="selection-result-title">
+                                <div id="tree-cover" class="tree-cover"></div>
+                                <div id="tree" class="selection-tree"></div>
+                                <div class="selection-select" id="btn" style="cursor: pointer;">类目筛选 <i class="iconfont icon-down" style="font-size: 12px; transform: scale(0.8)"></i></div>
+                                <button class="btn btn-orange pull-left margin-left-10" id="selected-btn" style="padding: 5px 12px;">应用</button>
+                                <button class="btn btn-gray pull-left margin-left-10" id="selected-clear-btn" style="padding: 5px 12px;">清空</button>
+                                <div class="selection-total">共有&nbsp;<span id="result-total-num">--</span>&nbsp;件活跃商品<i class="iconfont icon-notification tooltips" style="font-size: 11px; color: rgba(240, 131, 0, 1);" data-placement="left" title="活跃商品指的是在Amazon平台销售业绩良好或者近期呈较快上升趋势的商品（具体规则待补充）。目前我们在智能选品功能中仅开放了对活跃商品的筛选和分析。如果您关注的某个商品是非活跃商品，请搜索后按照提示添加，我们将其加入到活跃商品的行列中，一起更新。"></i></div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="selection-result-table-box">
+                                <table class="table admin-table selection-result-table" id="selection-result-table">
+                                    <thead>
+                                        <tr>
+                                            <th>商品</th>
+                                            <th>日销量</th>
+                                            <th>日销售额</th>
+                                            <th>BSR排名</th>
+                                            <th>价格</th>
+                                            <th>毛利率</th>
+                                            <th>FBA运费</th>
+                                            <th>评分</th>
+                                            <th>评论数量</th>
+                                            <th>近30天评论</th>
+                                            <th>留评率</th>
+                                            <th>上架天数</th>
+                                            <th>BB卖家</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-detail-section">
+                        <span class="closeDetailButton" id="jsDetailCloseButton"></span>
+                        <div class="product-detail-section">
+                            <div class="detail-header">
+                                <div class="detail-header-left">
+                                    <img src="" onerror="this.src='/image/error_pic.png'" alt="" id="detail-img" />
+                                </div>
+                                <div class="detail-header-right">
+                                    <div class="detail-title" id="detail-title"></div>
+                                    <div class="detail-brand" id="detail-brand"></div>
+                                    <div class="detail-other">
+                                        <span>价格：<span class="detail-orange-data" id="detail-price"></span></span>
+                                        <span>30天销量：<span class="detail-orange-data" id="detail-sales-thirty"></span></span>
+                                        <span>日均销量：<span class="detail-orange-data" id="detail-sales"></span></span>
+                                        <span>评分：<span class="detail-orange-data" id="detail-rating"></span></span>
+                                        <span>评论数量：<span class="detail-orange-data" id="detail-reviews"></span></span>
+                                        <span>留评率：<span class="detail-orange-data" id="detail-reviews-rate"></span></span>
+                                        <span>运费：<span class="detail-orange-data" id="detail-fba-fee"></span></span>
+                                        <span>上线天数：<span class="detail-orange-data" id="detail-sell-days"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-tabs">
+                                <div class="detail-tab-item" data-type="sales">销量趋势</div>
+                                <div class="detail-tab-item" data-type="price">价格趋势</div>
+                                <div class="detail-tab-item" data-type="rank">BSR排名趋势</div>
+                                <div class="detail-tab-item" data-type="rating">评分趋势</div>
+                                <div class="detail-tab-item" data-type="review">评论数量趋势</div>
+                                <div class="detail-tab-item" data-type="review_increase">新增评论趋势</div>
+                                <div class="detail-tab-item" data-type="review_rate">留评率趋势</div>
+                                <a href="javascript:void(0);" class="calculator-page">利润计算器</a>
+                            </div>
+                            <div class="detail-chart" id="detail-chart"></div>
+                        </div>
+                    </div>
+                    <div class="js-calculator-section">
+                        <span class="closeCalculatorButton" id="jsCalculatorCloseButton"></span>
+                        <div class="calculator-section-content">
+                            <div class="calculator-section-header">
+                                <span>FBA利润计算器</span>
+                            </div>
+                            <div class="calculator-section-body">
+                                <div class="left">
+                                    <div class="left-item">
+                                        <div class="left-item-title">+ 销售收入</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-price" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-title">- 产品成本</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <span id="calculator-product-cost">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">采购成本</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-purchase-cost" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">头程运费</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-freight-cost" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-title">- 营销成本</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <span id="calculator-sale-cost">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">站内广告</div>
+                                        <div class="left-item-info">占销售额比例%</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-ad-cost" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">其他营销成本</div>
+                                        <div class="left-item-info">占销售额比例%</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-other-cost" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-title">- 售后成本</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <span id="calculator-after-sale">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">退货成本</div>
+                                        <div class="left-item-info">退货率%</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-return-rate" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-title">- 亚马逊扣费</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <span id="calculator-amz-cost">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">销售佣金</div>
+                                        <div class="left-item-info">%</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-sales-commission" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">FBA运费</div>
+                                        <div class="left-item-info current-currency">$</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-fba-cost" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-title">X 销量</div>
+                                        <div class="left-item-info">件</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-orders" value="1" />
+                                        </div>
+                                    </div>
+                                    <div class="left-item" style="border-bottom: 1px solid #E4E4E4; padding-bottom: 10px;">
+                                        <div class="left-item-title">X 汇率</div>
+                                        <div class="left-item-info" id="currency-name">CNY/USD</div>
+                                        <div class="left-item-data">
+                                            <input type="text" class="left-item-input" id="calculator-exchange-rate" value="6.85" />
+                                        </div>
+                                    </div>
+                                    <div class="left-result">
+                                        <div class="left-result-title">利润</div>
+                                        <div class="left-result-data">
+                                            <span id="calculator-profit-d">-</span> / <span id="calculator-profit-r">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">总收入</div>
+                                        <div class="left-item-data">
+                                            <span id="calculator-total-revenue">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">总成本</div>
+                                        <div class="left-item-data">
+                                            <span id="calculator-total-cost">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="left-item">
+                                        <div class="left-item-subtitle">利润率</div>
+                                        <div class="left-item-data">
+                                            <span id="calculator-profit-margin">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div class="right-container">
+                                        <div class="right-title">定价参考</div>
+                                        <div class="calculator-table">
+                                            <div class="calculator-table-head">
+                                                <div class="calculator-table-td">定价<span class="current-currency">$</span></div>
+                                                <div class="calculator-table-td">总成本<span class="current-currency">$</span></div>
+                                                <div class="calculator-table-td">利润<span class="current-currency">$</span></div>
+                                                <div class="calculator-table-td">利润率</div>
+                                            </div>
+                                            <div class="calculator-table-body"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="text/template" id="calculator-table-tpl">
+                        <div class="calculator-table-tr {{if parseFloat(profit_margin)<0}}negative{{/if}} {{if price == line}}self{{/if}}">
+                            <div class="calculator-table-td">${price}</div>
+                            <div class="calculator-table-td">${total_cost}</div>
+                            <div class="calculator-table-td">${profit}</div>
+                            <div class="calculator-table-td">${profit_margin}</div>
+                        </div>
+                    </script>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">
+            <div class="page-footer-inner"> 2018 &copy; Sellermotor Inc.</div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        var isGuest = '';
+        if (isGuest===''){
+            sessionStorage.setItem('userName', "sm_秀逗魔导士_2b65");
+        }
+        else{
+
+        }
+        var r = "selection";
+        if(r == null || r == ''){
+            r = 'selection';
+        }
+        $('#'+ r +'-nav-item').siblings().removeClass('active');
+//        $(".page-sidebar .nav-item").removeClass('active');
+        $('#'+ r +'-nav-item').addClass('active');
+
+    });
+
+
+</script>
+</html>

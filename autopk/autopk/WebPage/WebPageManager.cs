@@ -58,6 +58,7 @@ namespace Autopk.WebPage
         public string _realloginiframeurl = string.Empty;
         public string _mainbussinesurlbase = string.Empty;
 
+
         public void OnOnePageLoad(FrameLoadEndEventArgs e)
         {
             //先会加载子iframe, 后才会加载 top frame.
@@ -70,63 +71,22 @@ namespace Autopk.WebPage
                 case PAGE_INIT: // 
                     if (currenturl.Contains(SearchPage.DEFAULT_PAGE))
                     {
-                        WhichPage = PAGE_SEARCH;
-                        ExecJs(frame, SearchPage.InputSearchCode("36136"));
-                        ExecJs(frame, SearchPage.StartSearchJumpPage());
-                    }
+                     }
                     break;
                 case PAGE_SEARCH:
                     if (currenturl.Contains(LoginPage.TOPFRAME_TAIL)) // login in page load end.
                     {
-                        WhichPage = PAGE_LOGIN;
 
-                        var identifiers = _browser.GetBrowser().GetFrameIdentifiers();
-                        IFrame tempframe = null;
-                        foreach (var i in identifiers)
-                        {
-                            tempframe = _browser.GetBrowser().GetFrame(i);
-                            if (!currenturl.Contains(tempframe.Url))
-                            {
-                                _realloginiframeurl = tempframe.Url;
-                                Log.ShowLog(TAG, "find real url is : " + _realloginiframeurl);
-                            }
-                        }
                     }
                     break;
                 case PAGE_LOGIN://agreen.
                     if (currenturl.Contains(AgreementPage.TOPFRAME_TAIL))
                     {
-                        WhichPage = PAGE_AGREEMNT;
-                        _mainbussinesurlbase = currenturl.Substring(0, currenturl.LastIndexOf('/') + 1);
-
-                        var identifiers = _browser.GetBrowser().GetFrameIdentifiers();
-                        IFrame tempframe = null;
-                        foreach (var i in identifiers)
-                        {
-                            tempframe = _browser.GetBrowser().GetFrame(i);
-                        }
-                        ExecJs(tempframe, AgreementPage.Script_OK);
                     }
-
                     break;
                 case PAGE_AGREEMNT:
                     if (currenturl.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
                     {
-                        WhichPage = PAGE_MAIN_BUSS;
-                        Log.ShowLog(TAG, "login in success : ");
-                        try
-                        {
-                            if (!threadhasstart)
-                            {
-                                workerThread = new Thread(new ThreadStart(DoLoopWork));
-                                KeepCheck = true;
-                                workerThread.Start();
-                                threadhasstart = true;
-                            }
-                        }
-                        catch
-                        {
-                        }
                     }
                     break;
                 case PAGE_MAIN_BUSS:
@@ -135,6 +95,26 @@ namespace Autopk.WebPage
                     break;
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
        
         private bool threadhasstart = false;
@@ -301,7 +281,92 @@ namespace Autopk.WebPage
             //            response.Message + " success:" + response.Success);
             //    }
             //});
+
+
         }
+
+
+
+
+
+
+        //public void OnOnePageLoad(FrameLoadEndEventArgs e)
+        //{
+        //    //先会加载子iframe, 后才会加载 top frame.
+        //    Log.ShowLog(TAG, "OnOnePageLoad url: " + e.Url + " frame url: " + e.Frame.Url);
+        //    var currenturl = e.Frame.Url;
+        //    var frame = e.Frame;
+
+        //    switch (WhichPage)
+        //    {
+        //        case PAGE_INIT: // 
+        //            if (currenturl.Contains(SearchPage.DEFAULT_PAGE))
+        //            {
+        //                WhichPage = PAGE_SEARCH;
+        //                ExecJs(frame, SearchPage.InputSearchCode("36136"));
+        //                ExecJs(frame, SearchPage.StartSearchJumpPage());
+        //            }
+        //            break;
+        //        case PAGE_SEARCH:
+        //            if (currenturl.Contains(LoginPage.TOPFRAME_TAIL)) // login in page load end.
+        //            {
+        //                WhichPage = PAGE_LOGIN;
+
+        //                var identifiers = _browser.GetBrowser().GetFrameIdentifiers();
+        //                IFrame tempframe = null;
+        //                foreach (var i in identifiers)
+        //                {
+        //                    tempframe = _browser.GetBrowser().GetFrame(i);
+        //                    if (!currenturl.Contains(tempframe.Url))
+        //                    {
+        //                        _realloginiframeurl = tempframe.Url;
+        //                        Log.ShowLog(TAG, "find real url is : " + _realloginiframeurl);
+        //                    }
+        //                }
+        //            }
+        //            break;
+        //        case PAGE_LOGIN://agreen.
+        //            if (currenturl.Contains(AgreementPage.TOPFRAME_TAIL))
+        //            {
+        //                WhichPage = PAGE_AGREEMNT;
+        //                _mainbussinesurlbase = currenturl.Substring(0, currenturl.LastIndexOf('/') + 1);
+
+        //                var identifiers = _browser.GetBrowser().GetFrameIdentifiers();
+        //                IFrame tempframe = null;
+        //                foreach (var i in identifiers)
+        //                {
+        //                    tempframe = _browser.GetBrowser().GetFrame(i);
+        //                }
+        //                ExecJs(tempframe, AgreementPage.Script_OK);
+        //            }
+
+        //            break;
+        //        case PAGE_AGREEMNT:
+        //            if (currenturl.Contains(_mainbussinesurlbase + Pk10MainPage.BJSC_MAINBODY_PAGE_ADD))
+        //            {
+        //                WhichPage = PAGE_MAIN_BUSS;
+        //                Log.ShowLog(TAG, "login in success : ");
+        //                try
+        //                {
+        //                    if (!threadhasstart)
+        //                    {
+        //                        workerThread = new Thread(new ThreadStart(DoLoopWork));
+        //                        KeepCheck = true;
+        //                        workerThread.Start();
+        //                        threadhasstart = true;
+        //                    }
+        //                }
+        //                catch
+        //                {
+        //                }
+        //            }
+        //            break;
+        //        case PAGE_MAIN_BUSS:
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
     }
 }

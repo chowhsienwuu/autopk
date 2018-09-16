@@ -41,7 +41,7 @@ namespace Autopk.Ui
 
            // browser.StatusMessage += OnBrowserStatusMessage;
            // browser.TitleChanged += OnBrowserTitleChanged;
-           // browser.AddressChanged += OnBrowserAddressChanged;
+            browser.AddressChanged += OnBrowserAddressChanged;
             browser.ConsoleMessage += Browser_ConsoleMessage;
             browser.FrameLoadEnd += OnFrameLoadEnd;
 
@@ -50,13 +50,13 @@ namespace Autopk.Ui
             var requesthander = browser.RequestHandler as AllRequestHandler;
             requesthander.NotifyData += Requesthander_NotifyData;
 
-          //  browser.JsDialogHandler = new AllJsDialogHandler();
+          //  browser.JsDialogHandler = new AllJsDialogHandler(); ..no use
 
             _WebPageManager = new WebPageManager(browser);
 
             if (Uri.IsWellFormedUriString(urlText.Text, UriKind.RelativeOrAbsolute))
             {
-                browser.Load(urlText.Text);
+              //  browser.Load(urlText.Text);
             }
         }
 
@@ -106,7 +106,7 @@ namespace Autopk.Ui
                 case PageUrlCharacteristic.MEMBERINFO_END:
                     memberinfo.UpdateMemberInfo(data);
                     break;
-                case PageUrlCharacteristic.CHECKSUM_MID:
+                case PageUrlCharacteristic.QRCODE:
                     Image image = Image.FromStream(new MemoryStream(data));
                     Bitmap bitmap = new Bitmap(image);
                     imagebutton.Image = bitmap;
@@ -230,6 +230,11 @@ namespace Autopk.Ui
         private void tackorder_Click(object sender, EventArgs e)
         {
             _WebPageManager.TackOrder2();
+        }
+
+        private void memberinfo_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

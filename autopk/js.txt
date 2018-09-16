@@ -1,0 +1,35 @@
+https://www.lifewire.com/get-inspect-element-tool-for-browser-756549
+如何找到element.
+Devtools 点control + shirt + I //查看
+
+www.bing.com
+搜索框 id   sb_form_q 
+document.getElementById('sb_form_q').value='fuck';
+开始搜索  input submit    id : sb_form_go, name go
+document.getElementById('sb_form_go').click();
+
+
+################
+价格:
+                                    <div class="selection-filter-button" data-min="" data-max="10" id="selection-price1">&lt; 10</div>
+                                    <div class="selection-filter-button" data-min="10" data-max="20" id="selection-price2">10 - 20</div>
+                                    <div class="selection-filter-button" data-min="20" data-max="30" id="selection-price3">20 - 30</div>
+                                    <div class="selection-filter-button" data-min="30" data-max="50" id="selection-price4">30 - 50</div>
+                                    <div class="selection-filter-button" data-min="50" data-max="100" id="selection-price5">50 - 100</div>
+                                    <div class="selection-filter-button" data-min="100" data-max="" id="selection-price6">&gt; 100</div>
+									
+				<div class="selection-filter-button" data-min="60" data-max="65">60 - 65%</div>					
+
+				
+document.getElementById('selection-price2').click();		
+
+日均销量.
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="min" placeholder="最小值" />
+                                        <span class="selection-filter-separate">到</span>
+                                        <input type="number" min="0" class="form-control selection-filter-input" name="max" placeholder="最大值" />
+										
+document.getElementById('sb_form_q').value='fuck';										
+							
+筛选		
+<button type="button" class="btn btn-orange btn-sellermotor" id="selection-confirm" data-flag="1">筛选</button>				
+document.getElementById('selection-confirm').click();

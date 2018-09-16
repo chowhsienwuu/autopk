@@ -107,14 +107,14 @@
       <DependentUpon>Memberinfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\Log.cs" />
-    <Compile Include="WebPage\AgreementPage.cs" />
-    <Compile Include="WebPage\AllJsDialogHandler.cs" />
+    <Compile Include="WebPage\pk10NotUse\AgreementPage.cs" />
+    <Compile Include="WebPage\pk10NotUse\AllJsDialogHandler.cs" />
     <Compile Include="Util\JavaScriptGen.cs" />
-    <Compile Include="WebPage\FillNumber.cs" />
-    <Compile Include="WebPage\LoginPage.cs" />
+    <Compile Include="WebPage\pk10NotUse\FillNumber.cs" />
+    <Compile Include="WebPage\pk10NotUse\LoginPage.cs" />
     <Compile Include="WebPage\PageUrlCharacteristic.cs" />
-    <Compile Include="WebPage\Pk10MainPage.cs" />
-    <Compile Include="WebPage\SearchPage.cs" />
+    <Compile Include="WebPage\pk10NotUse\Pk10MainPage.cs" />
+    <Compile Include="WebPage\pk10NotUse\SearchPage.cs" />
     <Compile Include="WebPage\AllRequestHandler .cs" />
     <Compile Include="WebPage\CompletedResponseFilter.cs" />
     <Compile Include="NotUse\ControlSnapshot.cs" />
@@ -159,6 +159,8 @@
   <ItemGroup>
     <Content Include="NotUse\JavaScriptsavejs.js" />
     <Content Include="WebPage\ref_pages\bjsc_twodides.html" />
+    <Content Include="WebPage\sellermotor\choosepage.html" />
+    <Content Include="WebPage\sellermotor\firstloginpage.html" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -172,6 +174,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

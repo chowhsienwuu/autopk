@@ -1,0 +1,118 @@
+﻿
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="/cssandjs/icon-font/iconfont.css?v=1512543638" rel="stylesheet" />
+
+
+    <link href="/cssandjs/simple-line-icons/simple-line-icons.min.css?v=1512543638" rel="stylesheet" />
+    <link href="/cssandjs/bootstrap/css/bootstrap.min.css?v=1512543638" rel="stylesheet" />
+    <link href="/cssandjs/components.css?v=1516084966" rel="stylesheet" />
+    <link href="/css/global/css/plugins.min.css?v=1512456853" rel="stylesheet" />
+    <link href="/cssandjs/login.css?v=1521784160" rel="stylesheet" />
+
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/A8577FFF-35DC-1A4F-8493-4747C052372E/main.js" charset="UTF-8"></script>
+    <script src="/cssandjs/jquery.min.js?v=1512543638"></script>
+    <script src="/cssandjs/bootstrap/js/bootstrap.min.js?v=1512543638"></script>
+    <script src="/js/global/plugins/jquery-validation/js/jquery.validate.min.js?v=1512456854"></script>
+    <script src="/js/global/plugins/jquery-validation/js/additional-methods.min.js?v=1512456854"></script>
+    <script src="/cssandjs/bootstrap-growl/jquery.bootstrap-growl.js?v=1516158121"></script>
+    <script src="/cssandjs/app.js?v=1530176515"></script>
+    <script src="/cssandjs/msgbox.js?v=1530258636"></script>
+    <script src="/cssandjs/baidu.js?v=1510258636"></script>
+    <!--[if lt IE 9]>
+    <script src="js/global/plugins/respond.min.js"></script>
+    <script src="js/global/plugins/excanvas.min.js"></script>
+    <script src="js/global/plugins/ie8.fix.min.js"></script>
+    <![endif]-->
+
+    <title>SellerMotor - Login</title>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="login">
+    <div id="login_container"></div>
+
+    <div class="page-spinner-bar hide">
+        <span class="covering"></span>
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+
+
+    <div class="login-container">
+        <div class="login-img">
+            <img src="/image/login-logo.png" alt="" />
+            <!--        <input type="hidden" value="--><!--" id="tem_token" />-->
+            <input type="hidden" value="" id="tem_token" />
+        </div>
+        <div class="login-iframe" id="login-iframe"></div>
+    </div>
+
+
+
+    <script>
+    $(document).ready(function () {
+//        //判断url中是否带有参数s，从而是否在cookie中存储带有的s参数
+//        function getURLParameter(paramName) {
+//            var searchString = window.location.search.substring(1),
+//                i, val, params = searchString.split("&");
+//
+//            for (i = 0; i < params.length; i++) {
+//                val = params[i].split("=");
+//                if (val[0] == paramName) {
+//                    return unescape(val[1]);
+//                }
+//            }
+//            return null;
+//        }
+//        function setCookie(value,hours) {
+//            var str = "s"+ "=" + escape(value);
+//            if(hours > 0){//为0时不设定过期时间，浏览器关闭时cookie自动消失
+//                var date = new Date();
+//                var ms = hours*3600*1000;
+//                date.setTime(date.getTime() + ms);
+//                str += ";expires="+ date.toGMTString() +";path=/;domain=.sellermotor.com";
+//            }
+//            document.cookie = str;
+//        }
+//        var s = getURLParameter('s');
+//        if(s != null){
+//            setCookie(s,1);
+//        }
+
+
+        var tem_token = $('#tem_token').val();
+        var arr = {};
+        arr['type'] = 'go_home';
+        arr['tem_token'] = tem_token;
+        var state =  JSON.stringify( arr );
+        var f = document.createElement('iframe');
+        f.src = 'https://open.weixin.qq.com/connect/qrconnect?appid=wxb3aa678c8da5deed&redirect_uri=https%3A%2F%2Fxp.sellermotor.com%2Fuser%2Fauth%2Flogin&response_type=code&scope=snsapi_login&state='+ state +'&login_type=jssdk&self_redirect=true#wechat_redirect';
+        f.frameBorder="0";
+        f.allowTransparency="true";
+        f.scrolling="no";
+        f.width="300px";
+        f.height="400px";
+        var container = document.getElementById('login-iframe');
+        container.appendChild(f);
+        $('#login-iframe').attr('data-state', 'go_home');
+    });
+
+
+
+
+
+    </script>
+
+</body>
+</html>

@@ -24,6 +24,11 @@ namespace Autopk.Ui
 
         public static IResponseFilter GetFileter(string guid)
         {
+            if (!(dataList.ContainsKey(guid)))
+            {
+                return null;
+            }
+
             lock (dataList)
             {
                 return dataList[guid];

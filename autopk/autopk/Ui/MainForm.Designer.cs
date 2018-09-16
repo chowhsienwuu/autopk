@@ -79,7 +79,7 @@
             this.urlText.Name = "urlText";
             this.urlText.Size = new System.Drawing.Size(386, 21);
             this.urlText.TabIndex = 1;
-            this.urlText.Text = "http://n668.cc282.com/";
+            this.urlText.Text = "https://xp.sellermotor.com";
             // 
             // goButton
             // 
@@ -103,7 +103,7 @@
             // 
             // jsptext
             // 
-            this.jsptext.Location = new System.Drawing.Point(782, 502);
+            this.jsptext.Location = new System.Drawing.Point(780, 557);
             this.jsptext.Multiline = true;
             this.jsptext.Name = "jsptext";
             this.jsptext.Size = new System.Drawing.Size(279, 132);
@@ -116,7 +116,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.browerpanel.Location = new System.Drawing.Point(302, 42);
             this.browerpanel.Name = "browerpanel";
-            this.browerpanel.Size = new System.Drawing.Size(812, 440);
+            this.browerpanel.Size = new System.Drawing.Size(812, 501);
             this.browerpanel.TabIndex = 15;
             // 
             // login
@@ -147,8 +147,8 @@
             // framecheckboxlist
             // 
             this.framecheckboxlist.FormattingEnabled = true;
-            this.framecheckboxlist.Location = new System.Drawing.Point(310, 502);
-            this.framecheckboxlist.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.framecheckboxlist.Location = new System.Drawing.Point(302, 557);
+            this.framecheckboxlist.Margin = new System.Windows.Forms.Padding(2);
             this.framecheckboxlist.Name = "framecheckboxlist";
             this.framecheckboxlist.Size = new System.Drawing.Size(458, 132);
             this.framecheckboxlist.TabIndex = 18;
@@ -157,7 +157,7 @@
             // 
             this.debugsaveCheckbox.AutoSize = true;
             this.debugsaveCheckbox.Location = new System.Drawing.Point(9, 20);
-            this.debugsaveCheckbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.debugsaveCheckbox.Margin = new System.Windows.Forms.Padding(2);
             this.debugsaveCheckbox.Name = "debugsaveCheckbox";
             this.debugsaveCheckbox.Size = new System.Drawing.Size(102, 16);
             this.debugsaveCheckbox.TabIndex = 19;
@@ -167,7 +167,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 589);
+            this.button1.Location = new System.Drawing.Point(9, 653);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 20;
@@ -177,7 +177,7 @@
             // 
             // clearbutton
             // 
-            this.clearbutton.Location = new System.Drawing.Point(94, 589);
+            this.clearbutton.Location = new System.Drawing.Point(90, 653);
             this.clearbutton.Name = "clearbutton";
             this.clearbutton.Size = new System.Drawing.Size(75, 23);
             this.clearbutton.TabIndex = 21;
@@ -187,8 +187,8 @@
             // 
             // tackorder
             // 
-            this.tackorder.Location = new System.Drawing.Point(174, 589);
-            this.tackorder.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tackorder.Location = new System.Drawing.Point(174, 653);
+            this.tackorder.Margin = new System.Windows.Forms.Padding(2);
             this.tackorder.Name = "tackorder";
             this.tackorder.Size = new System.Drawing.Size(68, 23);
             this.tackorder.TabIndex = 22;
@@ -198,17 +198,18 @@
             // 
             // memberinfo
             // 
-            this.memberinfo.Location = new System.Drawing.Point(13, 53);
+            this.memberinfo.Location = new System.Drawing.Point(9, 40);
             this.memberinfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.memberinfo.Name = "memberinfo";
             this.memberinfo.Size = new System.Drawing.Size(229, 83);
             this.memberinfo.TabIndex = 23;
+            this.memberinfo.Load += new System.EventHandler(this.memberinfo_Load);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1150, 643);
+            this.ClientSize = new System.Drawing.Size(1150, 704);
             this.Controls.Add(this.memberinfo);
             this.Controls.Add(this.tackorder);
             this.Controls.Add(this.clearbutton);

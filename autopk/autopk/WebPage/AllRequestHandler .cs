@@ -49,19 +49,19 @@ namespace Autopk
             }
 
             //   Console.WriteLine(" GetResourceResponseFilter ");
-            var url = new Uri(request.Url);
-            if (url.AbsoluteUri.Contains(PageUrlCharacteristic.CHECKSUM_MID))
-            {
-                var filter = FilterManager.CreateFilter(request.Identifier.ToString());
+            //var url = new Uri(request.Url);
+            //if (url.AbsoluteUri.Contains(PageUrlCharacteristic.QRCODE))
+            //{
+            //    var filter = FilterManager.CreateFilter(request.Identifier.ToString());
 
-                return filter;
-            }
+            //    return filter;
+            //}
 
-            if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
-            { //用户信息.
-                var filter = FilterManager.CreateFilter(request.Identifier.ToString());
-                return filter;
-            }
+            //if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
+            //{ //用户信息.
+            //    var filter = FilterManager.CreateFilter(request.Identifier.ToString());
+            //    return filter;
+            //}
 
             return null;
         }
@@ -113,53 +113,53 @@ namespace Autopk
 
         public void OnResourceLoadComplete(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength)
         {
-            
+
+           
             Log.ShowLog(TAG, "OnResourceLoadComplete " + request.Url);
-            if (request.Url.Contains(PageUrlCharacteristic.CHECKSUM_MID)) //验证码
-            {
-                var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
+            //if (request.Url.Contains(PageUrlCharacteristic.QRCODE)) //验证码
+            //{
+            //    var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
 
-                NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.CHECKSUM_MID);
+            //    NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.QRCODE);
 
-                if (!saveAllRespnseForDebug)
-                {
-                    FilterManager.DelFileter(request.Identifier.ToString());
-                }
-            }
+            //    if (!saveAllRespnseForDebug)
+            //    {
+            //        FilterManager.DelFileter(request.Identifier.ToString());
+            //    }
+            //}
 
-            if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
-             { //用户信息.
-                var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
-                if (!saveAllRespnseForDebug)
-                {
-                    FilterManager.DelFileter(request.Identifier.ToString());
-                }
-                NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.MEMBERINFO_END);
-                Log.ShowLog(TAG, "MEMINFO_END " + Encoding.Default.GetString(filter.dataAll.ToArray()));
-            }
+            //if (request.Url.EndsWith(PageUrlCharacteristic.MEMBERINFO_END) && response.StatusCode == 200)
+            // { //用户信息.
+            //    var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
+            //    if (!saveAllRespnseForDebug)
+            //    {
+            //        FilterManager.DelFileter(request.Identifier.ToString());
+            //    }
+            //    NotifyData?.Invoke(filter.dataAll.ToArray(), PageUrlCharacteristic.MEMBERINFO_END);
+            //    Log.ShowLog(TAG, "MEMINFO_END " + Encoding.Default.GetString(filter.dataAll.ToArray()));
+            //}
 
             #region test
             // for test.
             if (saveAllRespnseForDebug)
             {//save all file to 
                 var filter = FilterManager.GetFileter(request.Identifier.ToString()) as CompletedResponseFilter;
+                if (filter == null)
+                {
+                    return;
+                }
 
                 //  NotifyData?.Invoke(filter.dataAll.ToArray());
-                var rawurl = request.Url;
-                if (rawurl.EndsWith("/"))
-                {
-                    rawurl = rawurl.Remove(rawurl.Length - 1);
-                }
+                var url = request.Url;
 
-                var pos = rawurl.LastIndexOf('/');
-                string url = rawurl.Substring(pos);
-                 url =  url.Replace('?', '_').Replace('*', '_').Replace('|', '_').Replace('<', '_').Replace('>', '_').Replace(':', '_');
+                 url =  url.Replace('?', '_').Replace('*', '_').Replace('|', '_').Replace('<', '_').Replace('>', '_')
+                    .Replace(':', '_').Replace('/', '_');
 
-                if (url.Length > 100)
+                if (url.Length > 200)
                 {
-                    url = url.Substring(url.Length - 10);
+                    url = url.Substring(0, 200);
                 }
-                File.WriteAllBytes("D://htmlsave//" + url, filter?.dataAll.ToArray());
+                File.WriteAllBytes("E://htmlsave//" + url, filter?.dataAll.ToArray());
              //  FilterManager.DelFileter(request.Identifier.ToString());
             }
             #endregion 
