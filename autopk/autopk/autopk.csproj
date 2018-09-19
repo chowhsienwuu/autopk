@@ -160,6 +160,7 @@
     <Content Include="NotUse\JavaScriptsavejs.js" />
     <Content Include="WebPage\ref_pages\bjsc_twodides.html" />
     <Content Include="WebPage\sellermotor\choosepage.html" />
+    <None Include="WebPage\sellermotor\show.json" />
     <Content Include="WebPage\sellermotor\firstloginpage.html" />
   </ItemGroup>
   <ItemGroup>
